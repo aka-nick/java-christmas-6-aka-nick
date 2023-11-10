@@ -12,7 +12,7 @@ public class Dependency {
     private static final Output OUTPUT = new ConsoleOutput();
 
     public static PlannerOrganizer promotionPlanner() {
-        return new PlannerOrganizer(output());
+        return new PlannerOrganizer(input(), output());
     }
 
     private static Input input() {
