@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface Input {
 
-    String line();
+    String string();
 
     List<String> strings();
 

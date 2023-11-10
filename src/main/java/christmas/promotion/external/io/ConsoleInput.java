@@ -12,7 +12,7 @@ public class ConsoleInput implements Input {
 
     private static final String DEFAULT_SPLIT_REGEX = "";
 
-    public String line() {
+    public String string() {
         return Console.readLine();
     }
 
