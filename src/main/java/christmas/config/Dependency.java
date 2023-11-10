@@ -1,11 +1,11 @@
 package christmas.config;
 
-import christmas.promotion.organizer.PromotionPlanner;
+import christmas.promotion.organizer.PlannerOrganizer;
 
 public class Dependency {
 
-    public static PromotionPlanner promotionPlanner() {
-        return new PromotionPlanner();
+    public static PlannerOrganizer promotionPlanner() {
+        return new PlannerOrganizer();
     }
 
 }
