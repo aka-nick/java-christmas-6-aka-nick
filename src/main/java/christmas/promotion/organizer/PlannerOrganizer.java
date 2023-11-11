@@ -2,7 +2,6 @@ package christmas.promotion.organizer;
 
 import christmas.promotion.organizer.io.Input;
 import christmas.promotion.organizer.io.Output;
-import java.util.Arrays;
 import java.util.List;
 
 public class PlannerOrganizer {
@@ -23,10 +22,22 @@ public class PlannerOrganizer {
 
         output.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
         List<String> reservations = input.strings(",");
-        List<String[]> orderMenus = reservations.stream()
+        List<Food> orderMenus = reservations.stream()
                 .map(reservation -> reservation.split("-"))
+                .map(food -> new Food(food[0], Integer.parseInt(food[1])))
                 .toList();
 
+        output.println("12월 " + reservationDate + "일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
+    }
+
+}
+class Food {
+    String name;
+    int price;
+
+    public Food(String name, int price) {
+        this.name = name;
+        this.price = price;
     }
 
 }
