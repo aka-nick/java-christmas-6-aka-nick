@@ -3,6 +3,7 @@ package christmas.promotion.organizer;
 import christmas.promotion.organizer.io.Input;
 import christmas.promotion.organizer.io.Output;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PlannerOrganizer {
 
@@ -28,16 +29,30 @@ public class PlannerOrganizer {
                 .toList();
 
         output.println("12월 " + reservationDate + "일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
+
+        String orderedMenu = "<주문 메뉴> \n";
+        orderedMenu += orderMenus.stream()
+                .map(food -> food.getName() + " " + food.getAmount())
+                .collect(Collectors.joining("\n"));
+
     }
 
 }
 class Food {
-    String name;
-    int price;
+    private final String name;
+    private final int amount;
 
-    public Food(String name, int price) {
+    public Food(String name, int amount) {
         this.name = name;
-        this.price = price;
+        this.amount = amount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAmount() {
+        return amount;
     }
 
 }
