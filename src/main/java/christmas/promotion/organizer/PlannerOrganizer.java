@@ -1,7 +1,7 @@
 package christmas.promotion.organizer;
 
 import christmas.promotion.organizer.DecemberDate.Day;
-import christmas.promotion.organizer.DecemberDate.Event;
+import christmas.promotion.organizer.DecemberDate.Promotion;
 import christmas.promotion.organizer.Food.Category;
 import christmas.promotion.organizer.io.Input;
 import christmas.promotion.organizer.io.Output;
@@ -22,38 +22,38 @@ public class PlannerOrganizer {
 
     public void run() {
         List<DecemberDate> calendar = new ArrayList<>();
-        calendar.add(new DecemberDate(0, Day.FRIDAY, List.of(Event.D_DAY, Event.WEEKEND)));
-        calendar.add(new DecemberDate(1, Day.FRIDAY, List.of(Event.D_DAY, Event.WEEKEND)));
-        calendar.add(new DecemberDate(2, Day.SATURDAY, List.of(Event.D_DAY, Event.WEEKEND)));
-        calendar.add(new DecemberDate(3, Day.SUNDAY, List.of(Event.D_DAY, Event.WEEKDAY, Event.SPECIAL)));
-        calendar.add(new DecemberDate(4, Day.MONDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
-        calendar.add(new DecemberDate(5, Day.TUESDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
-        calendar.add(new DecemberDate(6, Day.WEDNESDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
-        calendar.add(new DecemberDate(7, Day.THURSDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
-        calendar.add(new DecemberDate(8, Day.FRIDAY, List.of(Event.D_DAY, Event.WEEKEND)));
-        calendar.add(new DecemberDate(9, Day.SATURDAY, List.of(Event.D_DAY, Event.WEEKEND)));
-        calendar.add(new DecemberDate(10, Day.SUNDAY, List.of(Event.D_DAY, Event.WEEKDAY, Event.SPECIAL)));
-        calendar.add(new DecemberDate(11, Day.MONDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
-        calendar.add(new DecemberDate(12, Day.TUESDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
-        calendar.add(new DecemberDate(13, Day.WEDNESDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
-        calendar.add(new DecemberDate(14, Day.THURSDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
-        calendar.add(new DecemberDate(15, Day.FRIDAY, List.of(Event.D_DAY, Event.WEEKEND)));
-        calendar.add(new DecemberDate(16, Day.SATURDAY, List.of(Event.D_DAY, Event.WEEKEND)));
-        calendar.add(new DecemberDate(17, Day.SUNDAY, List.of(Event.D_DAY, Event.WEEKDAY, Event.SPECIAL)));
-        calendar.add(new DecemberDate(18, Day.MONDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
-        calendar.add(new DecemberDate(19, Day.TUESDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
-        calendar.add(new DecemberDate(20, Day.WEDNESDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
-        calendar.add(new DecemberDate(21, Day.THURSDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
-        calendar.add(new DecemberDate(22, Day.FRIDAY, List.of(Event.D_DAY, Event.WEEKEND)));
-        calendar.add(new DecemberDate(23, Day.SATURDAY, List.of(Event.D_DAY, Event.WEEKEND)));
-        calendar.add(new DecemberDate(24, Day.SUNDAY, List.of(Event.D_DAY, Event.WEEKDAY, Event.SPECIAL)));
-        calendar.add(new DecemberDate(25, Day.MONDAY, List.of(Event.D_DAY, Event.WEEKDAY, Event.SPECIAL)));
-        calendar.add(new DecemberDate(26, Day.TUESDAY, List.of(Event.WEEKDAY)));
-        calendar.add(new DecemberDate(27, Day.WEDNESDAY, List.of(Event.WEEKDAY)));
-        calendar.add(new DecemberDate(28, Day.THURSDAY, List.of(Event.WEEKDAY)));
-        calendar.add(new DecemberDate(29, Day.FRIDAY, List.of(Event.WEEKEND)));
-        calendar.add(new DecemberDate(30, Day.SATURDAY, List.of(Event.WEEKEND)));
-        calendar.add(new DecemberDate(31, Day.SUNDAY, List.of(Event.WEEKDAY, Event.SPECIAL)));
+        calendar.add(new DecemberDate(0, Day.FRIDAY, List.of(Promotion.D_DAY, Promotion.WEEKEND)));
+        calendar.add(new DecemberDate(1, Day.FRIDAY, List.of(Promotion.D_DAY, Promotion.WEEKEND)));
+        calendar.add(new DecemberDate(2, Day.SATURDAY, List.of(Promotion.D_DAY, Promotion.WEEKEND)));
+        calendar.add(new DecemberDate(3, Day.SUNDAY, List.of(Promotion.D_DAY, Promotion.WEEKDAY, Promotion.SPECIAL)));
+        calendar.add(new DecemberDate(4, Day.MONDAY, List.of(Promotion.D_DAY, Promotion.WEEKDAY)));
+        calendar.add(new DecemberDate(5, Day.TUESDAY, List.of(Promotion.D_DAY, Promotion.WEEKDAY)));
+        calendar.add(new DecemberDate(6, Day.WEDNESDAY, List.of(Promotion.D_DAY, Promotion.WEEKDAY)));
+        calendar.add(new DecemberDate(7, Day.THURSDAY, List.of(Promotion.D_DAY, Promotion.WEEKDAY)));
+        calendar.add(new DecemberDate(8, Day.FRIDAY, List.of(Promotion.D_DAY, Promotion.WEEKEND)));
+        calendar.add(new DecemberDate(9, Day.SATURDAY, List.of(Promotion.D_DAY, Promotion.WEEKEND)));
+        calendar.add(new DecemberDate(10, Day.SUNDAY, List.of(Promotion.D_DAY, Promotion.WEEKDAY, Promotion.SPECIAL)));
+        calendar.add(new DecemberDate(11, Day.MONDAY, List.of(Promotion.D_DAY, Promotion.WEEKDAY)));
+        calendar.add(new DecemberDate(12, Day.TUESDAY, List.of(Promotion.D_DAY, Promotion.WEEKDAY)));
+        calendar.add(new DecemberDate(13, Day.WEDNESDAY, List.of(Promotion.D_DAY, Promotion.WEEKDAY)));
+        calendar.add(new DecemberDate(14, Day.THURSDAY, List.of(Promotion.D_DAY, Promotion.WEEKDAY)));
+        calendar.add(new DecemberDate(15, Day.FRIDAY, List.of(Promotion.D_DAY, Promotion.WEEKEND)));
+        calendar.add(new DecemberDate(16, Day.SATURDAY, List.of(Promotion.D_DAY, Promotion.WEEKEND)));
+        calendar.add(new DecemberDate(17, Day.SUNDAY, List.of(Promotion.D_DAY, Promotion.WEEKDAY, Promotion.SPECIAL)));
+        calendar.add(new DecemberDate(18, Day.MONDAY, List.of(Promotion.D_DAY, Promotion.WEEKDAY)));
+        calendar.add(new DecemberDate(19, Day.TUESDAY, List.of(Promotion.D_DAY, Promotion.WEEKDAY)));
+        calendar.add(new DecemberDate(20, Day.WEDNESDAY, List.of(Promotion.D_DAY, Promotion.WEEKDAY)));
+        calendar.add(new DecemberDate(21, Day.THURSDAY, List.of(Promotion.D_DAY, Promotion.WEEKDAY)));
+        calendar.add(new DecemberDate(22, Day.FRIDAY, List.of(Promotion.D_DAY, Promotion.WEEKEND)));
+        calendar.add(new DecemberDate(23, Day.SATURDAY, List.of(Promotion.D_DAY, Promotion.WEEKEND)));
+        calendar.add(new DecemberDate(24, Day.SUNDAY, List.of(Promotion.D_DAY, Promotion.WEEKDAY, Promotion.SPECIAL)));
+        calendar.add(new DecemberDate(25, Day.MONDAY, List.of(Promotion.D_DAY, Promotion.WEEKDAY, Promotion.SPECIAL)));
+        calendar.add(new DecemberDate(26, Day.TUESDAY, List.of(Promotion.WEEKDAY)));
+        calendar.add(new DecemberDate(27, Day.WEDNESDAY, List.of(Promotion.WEEKDAY)));
+        calendar.add(new DecemberDate(28, Day.THURSDAY, List.of(Promotion.WEEKDAY)));
+        calendar.add(new DecemberDate(29, Day.FRIDAY, List.of(Promotion.WEEKEND)));
+        calendar.add(new DecemberDate(30, Day.SATURDAY, List.of(Promotion.WEEKEND)));
+        calendar.add(new DecemberDate(31, Day.SUNDAY, List.of(Promotion.WEEKDAY, Promotion.SPECIAL)));
 
 
         List<Food> menu = new ArrayList<>();
@@ -79,7 +79,7 @@ public class PlannerOrganizer {
         List<String> reservations = input.strings(",");
         List<OrderFood> orderMenus = reservations.stream()
                 .map(reservation -> reservation.split("-"))
-                .map(food -> new OrderFood(food[0], Integer.parseInt(food[1])))
+                .map(food -> new OrderFood(menu.stream().filter(menuFood -> menuFood.getName().equals(food[0])).findFirst().get(), Integer.parseInt(food[1])))
                 .toList();
 
         output.println("12월 " + reservationDate + "일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
@@ -107,7 +107,7 @@ public class PlannerOrganizer {
 
         output.println("<증정 메뉴>");
         String resultOfGiveaway = "없음";
-        int amountOfGiveaway = 0;
+        int amountOfGiveaway = 0; // 굳이 여기서 조회해놓지 않아도 될듯. 사용할 곳과 멀어서 가독성이 떨어지고 변경 포인트가 잘 인지되지 않아 불안요소임.
         if (120_000 <= orderedtotalPrice) {
             resultOfGiveaway = "샴페인 1개";
             // 여기도, 맵으로 변경하면 순회할 필요 사라짐
@@ -120,13 +120,13 @@ public class PlannerOrganizer {
         List<String> totalBenefits = new ArrayList<>();
         int amountOfTotalBenefits = 0;
         if (10_000 <= orderedtotalPrice) {
-            List<Event> eventsOfReservationDate = calendar.get(reservationDate).getEvents();
-            if (eventsOfReservationDate.contains(Event.D_DAY)) {
+            List<Promotion> eventsOfReservationDate = calendar.get(reservationDate).getEvents();
+            if (eventsOfReservationDate.contains(Promotion.D_DAY)) {
                 int amountOfDDayBenefit = (reservationDate - 1) * 100 + 1000;
                 totalBenefits.add("크리스마스 디데이 할인: -" + amountOfDDayBenefit + "원");
                 amountOfTotalBenefits += amountOfDDayBenefit;
             }
-            if (eventsOfReservationDate.contains(Event.WEEKEND)) {
+            if (eventsOfReservationDate.contains(Promotion.WEEKEND)) {
                 long countOfMain = orderedFoods.stream().filter(food -> food.getCategory() == Category.MAIN).count();
                 long amountOfWeekendBenefit = 2023 * countOfMain;
                 if (0 < amountOfWeekendBenefit) {
@@ -134,7 +134,7 @@ public class PlannerOrganizer {
                     amountOfTotalBenefits += amountOfWeekendBenefit;
                 }
             }
-            if (eventsOfReservationDate.contains(Event.WEEKDAY)) {
+            if (eventsOfReservationDate.contains(Promotion.WEEKDAY)) {
                 long countOfMain = orderedFoods.stream().filter(food -> food.getCategory() == Category.DESSERT).count();
                 long amountOfWeekdayBenefit = 2023 * countOfMain;
                 if (0 < amountOfWeekdayBenefit) {
@@ -142,7 +142,7 @@ public class PlannerOrganizer {
                     amountOfTotalBenefits += amountOfWeekdayBenefit;
                 }
             }
-            if (eventsOfReservationDate.contains(Event.SPECIAL)) {
+            if (eventsOfReservationDate.contains(Promotion.SPECIAL)) {
                 int amountOfSpecialBenefit = 1000;
                 totalBenefits.add("특별 할인: -" + amountOfSpecialBenefit + "원");
                 amountOfTotalBenefits += amountOfSpecialBenefit;
@@ -161,6 +161,8 @@ public class PlannerOrganizer {
             output.println(
                     totalBenefits.stream().collect(Collectors.joining(System.lineSeparator())));
 
+            output.println("<총혜택 금액>");
+            output.println(amountOfTotalBenefits);
 
         }
 
@@ -194,21 +196,21 @@ public class PlannerOrganizer {
 
 class DecemberDate {
 
-    enum Event { D_DAY, WEEKDAY, WEEKEND, SPECIAL }
+    enum Promotion { D_DAY, WEEKDAY, WEEKEND, SPECIAL }
     enum Day { SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY }
 
     private final int date;
     private final Day day;
-    private final List<Event> events;
+    private final List<Promotion> promotions;
 
-    public DecemberDate(int date, Day day, List<Event> events) {
+    public DecemberDate(int date, Day day, List<Promotion> promotions) {
         this.date = date;
         this.day = day;
-        this.events = events;
+        this.promotions = promotions;
     }
 
-    public List<Event> getEvents() {
-        return events;
+    public List<Promotion> getEvents() {
+        return promotions;
     }
 
 }
