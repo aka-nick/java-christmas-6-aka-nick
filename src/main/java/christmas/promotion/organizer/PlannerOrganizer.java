@@ -90,6 +90,7 @@ public class PlannerOrganizer {
                 .map(orderFood -> orderFood.getFood().getName() + " " + orderFood.getAmount())
                 .collect(Collectors.joining("\n"));
         output.println(orderedMenu);
+        output.println();
 
         output.println("<할인 전 총주문 금액>");
         // 리스트로 메뉴를 저장했다보니까 메뉴를 순회하면서 찾아야 하는데 이름을 키로 하는 맵으로 하면 더 좋을 거 같다.
@@ -104,6 +105,7 @@ public class PlannerOrganizer {
                 .mapToInt(Food::getPrice)
                 .sum();
         output.println(orderedtotalPrice);
+        output.println();
 
         output.println("<증정 메뉴>");
         String resultOfGiveaway = "없음";
@@ -114,7 +116,9 @@ public class PlannerOrganizer {
             amountOfGiveaway = menu.stream().filter(food -> food.getName().equals("샴페인")).mapToInt(Food::getPrice).findFirst().getAsInt();
         }
         output.println(resultOfGiveaway);
+        output.println();
 
+        // 여기를 어떻게 구조화하느냐가 관건이다. 섣부르게 설계하지 말 것.
         // 혜택 목록 만들기와 총 혜택금액 계산하는 부분 - '혜택'이란 개념에 포함되는 두 결과값을 래핑한 값객체로 만들면 좋겠다
         output.println("<혜택 내역>");
         List<String> totalBenefits = new ArrayList<>();
@@ -158,43 +162,40 @@ public class PlannerOrganizer {
                     amountOfTotalBenefits += amountOfChampagne;
                 }
             }
-            output.println(
-                    totalBenefits.stream().collect(Collectors.joining(System.lineSeparator())));
-
-            output.println("<총혜택 금액>");
-            output.println(amountOfTotalBenefits);
-
-            output.println("<할인 후 예상 결제 금액>");
-            int amountOfAfterDiscount = orderedtotalPrice - amountOfTotalBenefits;
-            output.println(amountOfAfterDiscount + "원");
-
         }
+        String messageOfTotalBenefits = totalBenefits.stream().collect(Collectors.joining(System.lineSeparator()));
+        if (totalBenefits.size() == 0) {
+            messageOfTotalBenefits = "없음";
+        }
+        output.println(messageOfTotalBenefits);
+        output.println();
 
+        output.println("<총혜택 금액>");
+        output.println(amountOfTotalBenefits + "원");
+        output.println();
+
+        output.println("<할인 후 예상 결제 금액>");
+        int amountOfAfterDiscount = orderedtotalPrice - amountOfTotalBenefits;
+        output.println(amountOfAfterDiscount + "원");
+        output.println();
+
+        output.println("<12월 이벤트 배지>");
+        output.println(queryEventBadgeBy(amountOfTotalBenefits));
+        output.println();
     }
 
-//    private static String applyDiscountBenefits(int orderedTotalPrice, List<DecemberDate> calendar, int reservationDate) {
-//        if (orderedTotalPrice < 10000) {
-//            return "없음";
-//        }
-//
-//        List<String> appliedBenefits = new ArrayList<>();
-//        DecemberDate decemberDate = calendar.get(reservationDate);
-//        boolean whetherApplyDDay = decemberDate.getEvents().stream()
-//                .anyMatch(event -> event == Event.D_DAY);
-//        boolean whetherApplyWeekend = decemberDate.getEvents().stream()
-//                .anyMatch(event -> event == Event.WEEKEND);
-//        boolean whetherApplyWeekday = decemberDate.getEvents().stream()
-//                .anyMatch(event -> event == Event.WEEKDAY);
-//        boolean whetherApplySpecial = decemberDate.getEvents().stream()
-//                .anyMatch(event -> event == Event.SPECIAL);
-//
-//        if (whetherApplyDDay) {
-//            appliedBenefits.add("크리스마스 디데이 할인: -" + (reservationDate - 1) * 100 + 1000 + "원");
-//        }
-//        if (whetherApplyWeekend) {
-//            appliedBenefits.add("주말 할인: -" + 2023 + )
-//        }
-//    }
+    private String queryEventBadgeBy(int amountOfTotalBenefits) {
+        if (20_000 <= amountOfTotalBenefits) {
+            return "산타";
+        }
+        if (10_000 <= amountOfTotalBenefits) {
+            return "트리";
+        }
+        if (5_000 <= amountOfTotalBenefits) {
+            return "별";
+        }
+        return "없음";
+    }
 
 }
 
