@@ -22,6 +22,7 @@ public class PlannerOrganizer {
 
     public void run() {
         List<DecemberDate> calendar = new ArrayList<>();
+        calendar.add(new DecemberDate(0, Day.FRIDAY, List.of(Event.D_DAY, Event.WEEKEND)));
         calendar.add(new DecemberDate(1, Day.FRIDAY, List.of(Event.D_DAY, Event.WEEKEND)));
         calendar.add(new DecemberDate(2, Day.SATURDAY, List.of(Event.D_DAY, Event.WEEKEND)));
         calendar.add(new DecemberDate(3, Day.SUNDAY, List.of(Event.D_DAY, Event.WEEKDAY, Event.SPECIAL)));
@@ -86,7 +87,7 @@ public class PlannerOrganizer {
         // 아래의 orderedFoods가 나오는 스트림 연산을 먼저 해놓고, getName으로 메뉴명만 쭉 뽑는 방식이 더 좋을 것 같다
         output.println("<주문 메뉴>");
         String orderedMenu = orderMenus.stream()
-                .map(orderFood -> orderFood.getName() + " " + orderFood.getAmount())
+                .map(orderFood -> orderFood.getFood().getName() + " " + orderFood.getAmount())
                 .collect(Collectors.joining("\n"));
         output.println(orderedMenu);
 
@@ -95,7 +96,7 @@ public class PlannerOrganizer {
         List<Food> orderedFoods = orderMenus.stream()
                 .map(orderFood ->
                         menu.stream()
-                                .filter(menuFood -> menuFood.getName().equals(orderFood.getName()))
+                                .filter(menuFood -> menuFood.getName().equals(orderFood.getFood().getName()))
                                 .findFirst()
                                 .orElseThrow(() -> new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.")))
                 .toList();
@@ -107,17 +108,87 @@ public class PlannerOrganizer {
         output.println("<증정 메뉴>");
         String resultOfGiveaway = "없음";
         int amountOfGiveaway = 0;
-        if (120_000 < orderedtotalPrice) {
+        if (120_000 <= orderedtotalPrice) {
             resultOfGiveaway = "샴페인 1개";
             // 여기도, 맵으로 변경하면 순회할 필요 사라짐
             amountOfGiveaway = menu.stream().filter(food -> food.getName().equals("샴페인")).mapToInt(Food::getPrice).findFirst().getAsInt();
         }
         output.println(resultOfGiveaway);
 
+        // 혜택 목록 만들기와 총 혜택금액 계산하는 부분 - '혜택'이란 개념에 포함되는 두 결과값을 래핑한 값객체로 만들면 좋겠다
         output.println("<혜택 내역>");
-        String resultOfBenefit = "없음";
+        List<String> totalBenefits = new ArrayList<>();
+        int amountOfTotalBenefits = 0;
+        if (10_000 <= orderedtotalPrice) {
+            List<Event> eventsOfReservationDate = calendar.get(reservationDate).getEvents();
+            if (eventsOfReservationDate.contains(Event.D_DAY)) {
+                int amountOfDDayBenefit = (reservationDate - 1) * 100 + 1000;
+                totalBenefits.add("크리스마스 디데이 할인: -" + amountOfDDayBenefit + "원");
+                amountOfTotalBenefits += amountOfDDayBenefit;
+            }
+            if (eventsOfReservationDate.contains(Event.WEEKEND)) {
+                long countOfMain = orderedFoods.stream().filter(food -> food.getCategory() == Category.MAIN).count();
+                long amountOfWeekendBenefit = 2023 * countOfMain;
+                if (0 < amountOfWeekendBenefit) {
+                    totalBenefits.add("주말 할인: -" + amountOfWeekendBenefit + "원");
+                    amountOfTotalBenefits += amountOfWeekendBenefit;
+                }
+            }
+            if (eventsOfReservationDate.contains(Event.WEEKDAY)) {
+                long countOfMain = orderedFoods.stream().filter(food -> food.getCategory() == Category.DESSERT).count();
+                long amountOfWeekdayBenefit = 2023 * countOfMain;
+                if (0 < amountOfWeekdayBenefit) {
+                    totalBenefits.add("주말 할인: -" + amountOfWeekdayBenefit + "원");
+                    amountOfTotalBenefits += amountOfWeekdayBenefit;
+                }
+            }
+            if (eventsOfReservationDate.contains(Event.SPECIAL)) {
+                int amountOfSpecialBenefit = 1000;
+                totalBenefits.add("특별 할인: -" + amountOfSpecialBenefit + "원");
+                amountOfTotalBenefits += amountOfSpecialBenefit;
+            }
+            if (120_000 <= orderedtotalPrice) {
+                int amountOfChampagne = menu.stream()
+                        .filter(food -> food.getName().equals("샴페인"))
+                        .map(Food::getPrice)
+                        .findFirst()
+                        .orElse(0);
+                if (0 < amountOfChampagne) {
+                    totalBenefits.add("증정 이벤트: -" + amountOfChampagne + "원");
+                    amountOfTotalBenefits += amountOfChampagne;
+                }
+            }
+            output.println(
+                    totalBenefits.stream().collect(Collectors.joining(System.lineSeparator())));
+
+
+        }
 
     }
+
+//    private static String applyDiscountBenefits(int orderedTotalPrice, List<DecemberDate> calendar, int reservationDate) {
+//        if (orderedTotalPrice < 10000) {
+//            return "없음";
+//        }
+//
+//        List<String> appliedBenefits = new ArrayList<>();
+//        DecemberDate decemberDate = calendar.get(reservationDate);
+//        boolean whetherApplyDDay = decemberDate.getEvents().stream()
+//                .anyMatch(event -> event == Event.D_DAY);
+//        boolean whetherApplyWeekend = decemberDate.getEvents().stream()
+//                .anyMatch(event -> event == Event.WEEKEND);
+//        boolean whetherApplyWeekday = decemberDate.getEvents().stream()
+//                .anyMatch(event -> event == Event.WEEKDAY);
+//        boolean whetherApplySpecial = decemberDate.getEvents().stream()
+//                .anyMatch(event -> event == Event.SPECIAL);
+//
+//        if (whetherApplyDDay) {
+//            appliedBenefits.add("크리스마스 디데이 할인: -" + (reservationDate - 1) * 100 + 1000 + "원");
+//        }
+//        if (whetherApplyWeekend) {
+//            appliedBenefits.add("주말 할인: -" + 2023 + )
+//        }
+//    }
 
 }
 
@@ -134,6 +205,10 @@ class DecemberDate {
         this.date = date;
         this.day = day;
         this.events = events;
+    }
+
+    public List<Event> getEvents() {
+        return events;
     }
 
 }
@@ -185,16 +260,16 @@ class Food {
 
 class OrderFood {
 
-    private final String name;
+    private final Food food;
     private final int amount;
 
-    public OrderFood(String name, int amount) {
-        this.name = name;
+    public OrderFood(Food food, int amount) {
+        this.food = food;
         this.amount = amount;
     }
 
-    public String getName() {
-        return name;
+    public Food getFood() {
+        return food;
     }
 
     public int getAmount() {
