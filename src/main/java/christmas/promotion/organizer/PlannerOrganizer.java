@@ -68,6 +68,17 @@ public class PlannerOrganizer {
                 .mapToInt(Food::getPrice)
                 .sum();
         output.println(orderedtotalPrice);
+
+        output.println("<증정 메뉴>");
+        String resultOfGiveaway = "없음";
+        int amountOfGiveaway = 0;
+        if (120_000 < orderedtotalPrice) {
+            resultOfGiveaway = "샴페인 1개";
+            // 여기도, 맵으로 변경하면 순회할 필요 사라짐
+            amountOfGiveaway = menu.stream().filter(food -> food.getName().equals("샴페인")).mapToInt(Food::getPrice).findFirst().getAsInt();
+        }
+        output.println(resultOfGiveaway);
+
     }
 
 }
