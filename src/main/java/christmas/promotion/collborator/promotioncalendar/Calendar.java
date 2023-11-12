@@ -1,5 +1,6 @@
-package christmas.promotion.generic.promotioncalendar;
+package christmas.promotion.collborator.promotioncalendar;
 
+import christmas.promotion.collborator.shop.Food;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,8 +46,8 @@ public class Calendar {
         calendar.put(31, new Date(31, Day.SUNDAY, List.of(Promotion.WEEKDAY, Promotion.SPECIAL)));
     }
 
-    public static Date findToday(int todaysDate) {
-        return calendar.get(todaysDate);
+    public static Promotions findTodayPromotionsBy(int todayDate, List<Food> orderFoods) {
+        return new Promotions(calendar.get(todayDate), orderFoods);
     }
 
 }

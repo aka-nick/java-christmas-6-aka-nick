@@ -1,4 +1,4 @@
-package christmas.promotion.generic.promotioncalendar;
+package christmas.promotion.collborator.promotioncalendar;
 
 public enum Day {
     SUNDAY,
