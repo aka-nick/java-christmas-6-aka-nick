@@ -1,5 +1,7 @@
 package christmas.promotion.organizer;
 
+import christmas.promotion.organizer.DecemberDate.Day;
+import christmas.promotion.organizer.DecemberDate.Event;
 import christmas.promotion.organizer.Food.Category;
 import christmas.promotion.organizer.io.Input;
 import christmas.promotion.organizer.io.Output;
@@ -19,6 +21,39 @@ public class PlannerOrganizer {
     }
 
     public void run() {
+        List<DecemberDate> calendar = new ArrayList<>();
+        calendar.add(new DecemberDate(1, Day.FRIDAY, List.of(Event.D_DAY, Event.WEEKEND)));
+        calendar.add(new DecemberDate(2, Day.SATURDAY, List.of(Event.D_DAY, Event.WEEKEND)));
+        calendar.add(new DecemberDate(3, Day.SUNDAY, List.of(Event.D_DAY, Event.WEEKDAY, Event.SPECIAL)));
+        calendar.add(new DecemberDate(4, Day.MONDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
+        calendar.add(new DecemberDate(5, Day.TUESDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
+        calendar.add(new DecemberDate(6, Day.WEDNESDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
+        calendar.add(new DecemberDate(7, Day.THURSDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
+        calendar.add(new DecemberDate(8, Day.FRIDAY, List.of(Event.D_DAY, Event.WEEKEND)));
+        calendar.add(new DecemberDate(9, Day.SATURDAY, List.of(Event.D_DAY, Event.WEEKEND)));
+        calendar.add(new DecemberDate(10, Day.SUNDAY, List.of(Event.D_DAY, Event.WEEKDAY, Event.SPECIAL)));
+        calendar.add(new DecemberDate(11, Day.MONDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
+        calendar.add(new DecemberDate(12, Day.TUESDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
+        calendar.add(new DecemberDate(13, Day.WEDNESDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
+        calendar.add(new DecemberDate(14, Day.THURSDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
+        calendar.add(new DecemberDate(15, Day.FRIDAY, List.of(Event.D_DAY, Event.WEEKEND)));
+        calendar.add(new DecemberDate(16, Day.SATURDAY, List.of(Event.D_DAY, Event.WEEKEND)));
+        calendar.add(new DecemberDate(17, Day.SUNDAY, List.of(Event.D_DAY, Event.WEEKDAY, Event.SPECIAL)));
+        calendar.add(new DecemberDate(18, Day.MONDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
+        calendar.add(new DecemberDate(19, Day.TUESDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
+        calendar.add(new DecemberDate(20, Day.WEDNESDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
+        calendar.add(new DecemberDate(21, Day.THURSDAY, List.of(Event.D_DAY, Event.WEEKDAY)));
+        calendar.add(new DecemberDate(22, Day.FRIDAY, List.of(Event.D_DAY, Event.WEEKEND)));
+        calendar.add(new DecemberDate(23, Day.SATURDAY, List.of(Event.D_DAY, Event.WEEKEND)));
+        calendar.add(new DecemberDate(24, Day.SUNDAY, List.of(Event.D_DAY, Event.WEEKDAY, Event.SPECIAL)));
+        calendar.add(new DecemberDate(25, Day.MONDAY, List.of(Event.D_DAY, Event.WEEKDAY, Event.SPECIAL)));
+        calendar.add(new DecemberDate(26, Day.TUESDAY, List.of(Event.WEEKDAY)));
+        calendar.add(new DecemberDate(27, Day.WEDNESDAY, List.of(Event.WEEKDAY)));
+        calendar.add(new DecemberDate(28, Day.THURSDAY, List.of(Event.WEEKDAY)));
+        calendar.add(new DecemberDate(29, Day.FRIDAY, List.of(Event.WEEKEND)));
+        calendar.add(new DecemberDate(30, Day.SATURDAY, List.of(Event.WEEKEND)));
+        calendar.add(new DecemberDate(31, Day.SUNDAY, List.of(Event.WEEKDAY, Event.SPECIAL)));
+
 
         List<Food> menu = new ArrayList<>();
         menu.add(new Food(Category.APPETIZER, "양송이수프", 6_000));
@@ -79,9 +114,30 @@ public class PlannerOrganizer {
         }
         output.println(resultOfGiveaway);
 
+        output.println("<혜택 내역>");
+        String resultOfBenefit = "없음";
+
     }
 
 }
+
+class DecemberDate {
+
+    enum Event { D_DAY, WEEKDAY, WEEKEND, SPECIAL }
+    enum Day { SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY }
+
+    private final int date;
+    private final Day day;
+    private final List<Event> events;
+
+    public DecemberDate(int date, Day day, List<Event> events) {
+        this.date = date;
+        this.day = day;
+        this.events = events;
+    }
+
+}
+
 class Food {
 
     enum Category { APPETIZER, MAIN, DESSERT, BEVERAGE }
