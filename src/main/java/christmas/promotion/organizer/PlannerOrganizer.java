@@ -164,6 +164,10 @@ public class PlannerOrganizer {
             output.println("<총혜택 금액>");
             output.println(amountOfTotalBenefits);
 
+            output.println("<할인 후 예상 결제 금액>");
+            int amountOfAfterDiscount = orderedtotalPrice - amountOfTotalBenefits;
+            output.println(amountOfAfterDiscount + "원");
+
         }
 
     }
