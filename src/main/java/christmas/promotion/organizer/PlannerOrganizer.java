@@ -55,12 +55,11 @@ public class PlannerOrganizer {
         // TODO : amountOfGiveaway를 미리 조회해놓을 필요 없음. 오히려 필요할 때 늦게 조회할 수록 좋다는 생각.
         output.println("<증정 메뉴>");
         String resultOfGiveaway = "없음";
-        int amountOfGiveaway = 0; // 굳이 여기서 조회해놓지 않아도 될듯. 사용할 곳과 멀어서 가독성이 떨어지고 변경 포인트가 잘 인지되지 않아 불안요소임.
+        int priceOfGiveaway = 0; // 굳이 여기서 조회해놓지 않아도 될듯. 사용할 곳과 멀어서 가독성이 떨어지고 변경 포인트가 잘 인지되지 않아 불안요소임.
         if (120_000 <= orderedPrice) {
             resultOfGiveaway = "샴페인 1개";
-            // TODO : 메뉴 리스트를 메뉴 맵으로 변경하게 되면 이 곳의 로직도 변경이 필요할 것
             // 여기도, 맵으로 변경하면 순회할 필요 사라짐
-            amountOfGiveaway = menu.stream().filter(food -> food.getName().equals("샴페인")).mapToInt(Food::getPrice).findFirst().getAsInt();
+            priceOfGiveaway = Menu.findBy("샴페인").getPrice();
         }
         output.println(resultOfGiveaway);
         output.println();
