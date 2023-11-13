@@ -1,13 +1,17 @@
 package christmas.promotion.organizer;
 
-import christmas.promotion.generic.promotioncalendar.Calendar;
-import christmas.promotion.generic.promotioncalendar.Promotion;
-import christmas.promotion.organizer.Food.Category;
+import christmas.promotion.collborator.menu.Food;
+import christmas.promotion.collborator.menu.Menu;
+import christmas.promotion.collborator.order.Order;
+import christmas.promotion.collborator.order.Orders;
+import christmas.promotion.collborator.promotioncalendar.Calendar;
+import christmas.promotion.collborator.promotioncalendar.Promotion;
+import christmas.promotion.collborator.promotioncalendar.Promotions;
+import christmas.promotion.enums.GlobalMessage;
 import christmas.promotion.organizer.io.Input;
 import christmas.promotion.organizer.io.Output;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class PlannerOrganizer {
@@ -21,21 +25,6 @@ public class PlannerOrganizer {
     }
 
     public void run() {
-        // TODO : 메뉴는 정적으로 관리한다
-        // TODO : 메뉴를 리스트 대신 맵으로 관리하자 (즉시 찾기 가능, 즉, 매번 stream 순회 필요 없음)
-        List<Food> menu = new ArrayList<>();
-        menu.add(new Food(Category.APPETIZER, "양송이수프", 6_000));
-        menu.add(new Food(Category.APPETIZER, "타파스", 5_500));
-        menu.add(new Food(Category.APPETIZER, "시저샐러드", 8_000));
-        menu.add(new Food(Category.MAIN, "티본스테이크", 55_000));
-        menu.add(new Food(Category.MAIN, "바비큐립", 54_000));
-        menu.add(new Food(Category.MAIN, "해산물파스타", 35_000));
-        menu.add(new Food(Category.MAIN, "크리스마스파스타", 25_000));
-        menu.add(new Food(Category.DESSERT, "초코케이크", 15_000));
-        menu.add(new Food(Category.DESSERT, "아이스크림", 5_000));
-        menu.add(new Food(Category.BEVERAGE, "제로콜라", 3_000));
-        menu.add(new Food(Category.BEVERAGE, "레드와인", 60_000));
-        menu.add(new Food(Category.BEVERAGE, "샴페인", 25_000));
 
         output.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
 
@@ -46,26 +35,23 @@ public class PlannerOrganizer {
         // TODO : 예외 시 재입력 처리를 적용한다
         output.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
         List<String> reservations = input.strings(",");
-        List<OrderFood> orderMenus = reservations.stream()
+        Orders orders = new Orders(reservations.stream()
                 .map(reservation -> reservation.split("-"))
-                .map(food -> new OrderFood(menu.stream().filter(menuFood -> menuFood.getName().equals(food[0])).findFirst().get(), Integer.parseInt(food[1])))
-                .toList();
+                .map(Order::place)
+                .toList());
 
         output.println("12월 " + reservationDate + "일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
 
         // TODO : 로직 개선 - orderedFoods를 불변형태로 조회해두고 이후 로직에서도 재사용하자
-        // 아래의 orderedFoods가 나오는 스트림 연산을 먼저 해놓고, getName으로 메뉴명만 쭉 뽑는 방식이 더 좋을 것 같다
         output.println("<주문 메뉴>");
-        String orderedMenu = orderMenus.stream()
-                .map(orderFood -> orderFood.getFood().getName() + " " + orderFood.getAmount())
-                .collect(Collectors.joining("\n"));
-        output.println(orderedMenu);
+        List<String> orderedFoods = orders.findAllOrderedFood();
+        output.println(String.join(GlobalMessage.NEW_LINE.get(), orderedFoods));
         output.println();
 
         // TODO : 메뉴 리스트가 메뉴 맵으로 개선되면 그에 따른 로직 변경 필요함
         output.println("<할인 전 총주문 금액>");
         // 리스트로 메뉴를 저장했다보니까 메뉴를 순회하면서 찾아야 하는데 이름을 키로 하는 맵으로 하면 더 좋을 거 같다.
-        List<Food> orderedFoods = orderMenus.stream()
+        List<Food> orderedFoods = orders.stream()
                 .map(orderFood ->
                         menu.stream()
                                 .filter(menuFood -> menuFood.getName().equals(orderFood.getFood().getName()))
@@ -99,7 +85,8 @@ public class PlannerOrganizer {
         List<String> totalBenefits = new ArrayList<>();
         int amountOfTotalBenefits = 0;
         if (10_000 <= orderedTotalPrice) {
-            List<Promotion> todaysPromotion = Calendar.findToday(reservationDate).promotions();
+            Promotions todaysPromotion = Calendar.findTodayPromotionsBy(reservationDate, orderedTotalPrice);
+
             if (todaysPromotion.contains(Promotion.D_DAY)) {
                 int amountOfDDayBenefit = (reservationDate - 1) * 100 + 1000;
                 totalBenefits.add("크리스마스 디데이 할인: -" + amountOfDDayBenefit + "원");
@@ -195,67 +182,47 @@ public class PlannerOrganizer {
 //
 //}
 
-class Food {
-
-    enum Category { APPETIZER, MAIN, DESSERT, BEVERAGE }
-
-    private final Category category;
-    private final String name;
-    private final int price;
-
-    public Food(Category category, String name, int price) {
-        this.category = category;
-        this.name = name;
-        this.price = price;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Food food = (Food) o;
-        return name.equals(food.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name);
-    }
-
-}
-
-class OrderFood {
-
-    private final Food food;
-    private final int amount;
-
-    public OrderFood(Food food, int amount) {
-        this.food = food;
-        this.amount = amount;
-    }
-
-    public Food getFood() {
-        return food;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-}
+//class Food {
+//
+//    enum Category { APPETIZER, MAIN, DESSERT, BEVERAGE }
+//
+//    private final Category category;
+//    private final String name;
+//    private final int price;
+//
+//    public Food(Category category, String name, int price) {
+//        this.category = category;
+//        this.name = name;
+//        this.price = price;
+//    }
+//
+//    public Category getCategory() {
+//        return category;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public int getPrice() {
+//        return price;
+//    }
+//
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) {
+//            return true;
+//        }
+//        if (o == null || getClass() != o.getClass()) {
+//            return false;
+//        }
+//        Food food = (Food) o;
+//        return name.equals(food.name);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(name);
+//    }
+//
+//}
