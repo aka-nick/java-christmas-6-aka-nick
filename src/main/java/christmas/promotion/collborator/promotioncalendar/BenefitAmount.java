@@ -23,4 +23,12 @@ public record BenefitAmount(Optional<Integer> amountOfGiveaway,
                 && amountOfSpecial().isEmpty();
     }
 
+    public Integer amountOfTotalBenefits() {
+        return amountOfGiveaway.orElse(0)
+                + amountOfDDay.orElse(0)
+                + amountOfWeekend.orElse(0)
+                + amountOfWeekday.orElse(0)
+                + amountOfSpecial.orElse(0);
+    }
+
 }
