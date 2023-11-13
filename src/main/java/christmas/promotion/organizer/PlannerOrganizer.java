@@ -28,17 +28,11 @@ public class PlannerOrganizer {
 
     public void run() {
 
-        reservationManager.greetToGuest();
+        reservationManager.sayGreet();
 
         Date reservationDate = reservationManager.askReservationDate();
 
-        // TODO : 예외 시 재입력 처리를 적용한다
-        output.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
-        List<String> reservations = input.strings(",");
-        Orders orders = new Orders(reservations.stream()
-                .map(reservation -> reservation.split("-"))
-                .map(Order::place)
-                .toList());
+        Orders orders = reservationManager.takeOrders();
 
         output.println("12월 " + reservationDate.date() + "일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
 
