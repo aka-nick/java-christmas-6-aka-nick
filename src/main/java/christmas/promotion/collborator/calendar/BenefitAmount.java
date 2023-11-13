@@ -8,6 +8,7 @@ public record BenefitAmount(Optional<Integer> amountOfGiveaway,
                             Optional<Integer> amountOfWeekday,
                             Optional<Integer> amountOfSpecial) {
 
+    // TODO : 리터럴 제거
     public String askResultOfGiveaway() {
         if (amountOfGiveaway().isEmpty()) {
             return "없음";
