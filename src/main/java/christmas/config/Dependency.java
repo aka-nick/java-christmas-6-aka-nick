@@ -6,6 +6,7 @@ import christmas.promotion.organizer.PlannerOrganizer;
 import christmas.promotion.organizer.io.Input;
 import christmas.promotion.organizer.io.Output;
 import christmas.promotion.organizer.viewer.OrderManager;
+import christmas.promotion.organizer.viewer.PromotionPlanner;
 import christmas.promotion.organizer.viewer.ReservationManager;
 
 public class Dependency {
@@ -13,8 +14,8 @@ public class Dependency {
     private static final Input INPUT = new ConsoleInput();
     private static final Output OUTPUT = new ConsoleOutput();
 
-    public static PlannerOrganizer promotionPlanner() {
-        return new PlannerOrganizer(input(), output(), reservationManager(), orderManager());
+    public static PlannerOrganizer promotionOrganizer() {
+        return new PlannerOrganizer(reservationManager(), orderManager(), promotionPlanner());
     }
 
     public static Input input() {
@@ -31,6 +32,10 @@ public class Dependency {
 
     public static OrderManager orderManager() {
         return new OrderManager(input(), output());
+    }
+
+    public static PromotionPlanner promotionPlanner() {
+        return new PromotionPlanner(output());
     }
 
 }

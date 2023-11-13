@@ -4,7 +4,6 @@ import static christmas.promotion.enums.organizer.viewer.ReservationManagerMessa
 import static christmas.promotion.enums.organizer.viewer.ReservationManagerMessage.SAY_GREETING;
 
 import christmas.promotion.collborator.calendar.Date;
-import christmas.promotion.collborator.order.Orders;
 import christmas.promotion.exception.InvalidReservationDateException;
 import christmas.promotion.organizer.io.Input;
 import christmas.promotion.organizer.io.InteractionRepeatable;
@@ -29,11 +28,6 @@ public class ReservationManager implements InteractionRepeatable {
             output.println(ASK_RESERVATION_DATE);
             return Date.of(input.number());
         }, new InvalidReservationDateException());
-    }
-
-    public void announceBenefitPreview(Date reservationDate, Orders orders) {
-        output.println("12월 " + reservationDate.date() + "일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
-
     }
 
 }
