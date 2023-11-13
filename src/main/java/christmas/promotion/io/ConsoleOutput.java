@@ -1,4 +1,4 @@
-package christmas.promotion.external.io;
+package christmas.promotion.io;
 
 import christmas.promotion.organizer.io.Output;
 

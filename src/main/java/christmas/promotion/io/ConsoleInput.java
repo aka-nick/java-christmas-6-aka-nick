@@ -1,6 +1,6 @@
-package christmas.promotion.external.io;
+package christmas.promotion.io;
 
-import static christmas.promotion.external.io.enums.InputMessage.*;
+import static christmas.promotion.enums.io.ConsoleInputMessage.*;
 
 import camp.nextstep.edu.missionutils.Console;
 import christmas.promotion.organizer.io.Input;
