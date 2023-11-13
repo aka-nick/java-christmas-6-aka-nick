@@ -1,11 +1,17 @@
 package christmas.promotion.collborator.promotioncalendar;
 
+import christmas.promotion.collborator.menu.Menu;
 import christmas.promotion.collborator.order.Orders;
 import java.util.Optional;
 
 public class Promotions {
 
     private static final int CRITERIA_AMOUNT_FOR_EVENT = 10_000;
+    private static final int CRITERIA_AMOUNT_FOR_GIVEAWAY = 120_000;
+    private static final int DEFAULT_AMOUNT_OF_D_DAY_DISCOUNT = 1_000;
+    private static final int INCREASE_AMOUNT_OF_D_DAY_DISCOUNT = 100;
+    private static final int AMOUNT_OF_WEEK_DISCOUNT = 2_023;
+    private static final int AMOUNT_OF_SPECIAL_DISCOUNT = 1_000;
 
     private final Date today;
     private final Orders orders;
@@ -17,9 +23,10 @@ public class Promotions {
         this.totalPaymentAmount = orders.calculateTotalPrice();
     }
 
-    public BenefitAmount askBenefitAmountOf(Promotion promotion) {
+    public BenefitAmount askBenefitAmount() {
         if (totalPaymentAmount < CRITERIA_AMOUNT_FOR_EVENT) {
             return new BenefitAmount(
+                    Optional.empty(),
                     Optional.empty(),
                     Optional.empty(),
                     Optional.empty(),
@@ -27,43 +34,50 @@ public class Promotions {
         }
 
         return new BenefitAmount(
+                calculateGiveAwayAmount(),
                 calculateDDayAmount(),
                 calculateWeekendAmount(),
                 calculateWeekdayAmount(),
                 calculateSpecialAmount());
     }
 
+    private Optional<Integer> calculateGiveAwayAmount() {
+        if (totalPaymentAmount < CRITERIA_AMOUNT_FOR_GIVEAWAY) {
+            return Optional.empty();
+        }
+        return Optional.of(Menu.findBy("샴페인").getPrice());
+    }
+
     private Optional<Integer> calculateDDayAmount() {
         if (!today.contains(Promotion.D_DAY)) {
             return Optional.empty();
         }
-
-        final int dDayBasicAmount = 1000;
-        final int increaseUnit = 100;
         final int dayOfIncrease = today.date() - 1;
         return Optional.of(
-                dDayBasicAmount + (dayOfIncrease * increaseUnit));
+                DEFAULT_AMOUNT_OF_D_DAY_DISCOUNT + (dayOfIncrease * INCREASE_AMOUNT_OF_D_DAY_DISCOUNT));
     }
 
     private Optional<Integer> calculateWeekendAmount() {
         if (!today.contains(Promotion.WEEKEND)) {
             return Optional.empty();
         }
-
-        long countOfMain = orderedFoods.stream().filter(food -> food.getCategory() == Category.MAIN).count();
-        long amountOfWeekendBenefit = 2023 * countOfMain;
-        if (0 < amountOfWeekendBenefit) {
-            totalBenefits.add("주말 할인: -" + amountOfWeekendBenefit + "원");
-            amountOfTotalBenefits += amountOfWeekendBenefit;
-        }
-        return
+        return Optional.of(
+                orders.countMainOrders() * AMOUNT_OF_WEEK_DISCOUNT);
     }
 
-    record BenefitAmount(Optional<Integer> amountOfDDay,
-                         Optional<Integer> amountOfWeekend,
-                         Optional<Integer> amountOfWeekday,
-                         Optional<Integer> amountOfSpecial) {
+    private Optional<Integer> calculateWeekdayAmount() {
+        if (!today.contains(Promotion.WEEKDAY)) {
+            return Optional.empty();
+        }
+        return Optional.of(
+                orders.countDessertOrders() * AMOUNT_OF_WEEK_DISCOUNT);
+    }
 
+    private Optional<Integer> calculateSpecialAmount() {
+        if (!today.contains(Promotion.SPECIAL)) {
+            return Optional.empty();
+        }
+        return Optional.of(AMOUNT_OF_SPECIAL_DISCOUNT);
     }
     /*
   - 반드시 연산값1이 연산값2보다 우선해야 함.

@@ -4,7 +4,9 @@ import christmas.promotion.collborator.menu.Food;
 import christmas.promotion.collborator.menu.Menu;
 import christmas.promotion.collborator.order.Order;
 import christmas.promotion.collborator.order.Orders;
+import christmas.promotion.collborator.promotioncalendar.BenefitAmount;
 import christmas.promotion.collborator.promotioncalendar.Calendar;
+import christmas.promotion.collborator.promotioncalendar.Date;
 import christmas.promotion.collborator.promotioncalendar.Promotion;
 import christmas.promotion.collborator.promotioncalendar.Promotions;
 import christmas.promotion.enums.GlobalMessage;
@@ -30,7 +32,7 @@ public class PlannerOrganizer {
 
         // TODO : 예외 시 재입력 처리를 적용한다
         output.println("12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)");
-        int reservationDate = input.number();
+        Date reservationDate = Calendar.findDate(input.number());
 
         // TODO : 예외 시 재입력 처리를 적용한다
         output.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
@@ -40,7 +42,7 @@ public class PlannerOrganizer {
                 .map(Order::place)
                 .toList());
 
-        output.println("12월 " + reservationDate + "일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
+        output.println("12월 " + reservationDate.date() + "일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
 
         output.println("<주문 메뉴>");
         List<String> orderedFoods = orders.findAllOrderedFood();
@@ -52,16 +54,11 @@ public class PlannerOrganizer {
         output.println(orderedPrice);
         output.println();
 
-        // TODO : amountOfGiveaway를 미리 조회해놓을 필요 없음. 오히려 필요할 때 늦게 조회할 수록 좋다는 생각.
+        Promotions promotionsOfReservationDate = Calendar.findPromotionsBy(reservationDate, orders);
+        BenefitAmount benefits = promotionsOfReservationDate.askBenefitAmount();
+
         output.println("<증정 메뉴>");
-        String resultOfGiveaway = "없음";
-        int priceOfGiveaway = 0; // 굳이 여기서 조회해놓지 않아도 될듯. 사용할 곳과 멀어서 가독성이 떨어지고 변경 포인트가 잘 인지되지 않아 불안요소임.
-        if (120_000 <= orderedPrice) {
-            resultOfGiveaway = "샴페인 1개";
-            // 여기도, 맵으로 변경하면 순회할 필요 사라짐
-            priceOfGiveaway = Menu.findBy("샴페인").getPrice();
-        }
-        output.println(resultOfGiveaway);
+        output.println(benefits.askResultOfGiveaway());
         output.println();
 
         // TODO : if 블럭 안에서 최소 두 가지 일을 한 번에 하고 있다 - 1)할인문구 생성 2)할인총액 연산
@@ -69,10 +66,32 @@ public class PlannerOrganizer {
         // 여기를 어떻게 구조화하느냐가 관건이다. 섣부르게 설계하지 말 것.
         // 혜택 목록 만들기와 총 혜택금액 계산하는 부분 - '혜택'이란 개념에 포함되는 두 결과값을 래핑한 값객체로 만들면 좋겠다
         output.println("<혜택 내역>");
+//        Promotions promotionsOfReservationDate = Calendar.findPromotionsBy(reservationDate, orders);
+//        BenefitAmount benefits = promotionsOfReservationDate.askBenefitAmount();
+
+        if (benefits.isAllEmpty()) {
+            output.println("없음");
+        }
+        else {
+            List<String> totalBenefitMessages = new ArrayList<>();
+            if (benefits.amountOfDDay().isPresent()) {
+                totalBenefitMessages.add("크리스마스 디데이 할인: -" + benefits.amountOfDDay().get() + "원");
+            }
+            if (benefits.amountOfWeekend().isPresent()) {
+                totalBenefitMessages.add("주말 할인: -" + benefits.amountOfWeekend().get() + "원");
+            }
+            if (benefits.amountOfWeekday().isPresent()) {
+                totalBenefitMessages.add("평일 할인: -" + benefits.amountOfWeekday().get() + "원");
+            }
+            if (benefits.amountOfSpecial().isPresent()) {
+                totalBenefitMessages.add("특별 할인: -" + benefits.amountOfSpecial().get() + "원");
+            }
+
+        }
         List<String> totalBenefits = new ArrayList<>();
         int amountOfTotalBenefits = 0;
         if (10_000 <= orderedTotalPrice) {
-            Promotions todaysPromotion = Calendar.findTodayPromotionsBy(reservationDate, orderedTotalPrice);
+            Promotions todaysPromotion = Calendar.findPromotionsBy(reservationDate, orderedTotalPrice);
 
             if (todaysPromotion.contains(Promotion.D_DAY)) {
                 int amountOfDDayBenefit = (reservationDate - 1) * 100 + 1000;
