@@ -42,16 +42,13 @@ public class PlannerOrganizer {
 
         output.println("12월 " + reservationDate + "일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
 
-        // TODO : 로직 개선 - orderedFoods를 불변형태로 조회해두고 이후 로직에서도 재사용하자
         output.println("<주문 메뉴>");
         List<String> orderedFoods = orders.findAllOrderedFood();
         output.println(String.join(GlobalMessage.NEW_LINE.get(), orderedFoods));
         output.println();
 
-        // TODO : 메뉴 리스트가 메뉴 맵으로 개선되면 그에 따른 로직 변경 필요함
         output.println("<할인 전 총주문 금액>");
         int orderedPrice = orders.calculateTotalPrice();
-        // 리스트로 메뉴를 저장했다보니까 메뉴를 순회하면서 찾아야 하는데 이름을 키로 하는 맵으로 하면 더 좋을 거 같다.
         output.println(orderedPrice);
         output.println();
 
