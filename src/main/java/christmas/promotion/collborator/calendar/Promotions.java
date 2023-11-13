@@ -2,6 +2,7 @@ package christmas.promotion.collborator.calendar;
 
 import christmas.promotion.collborator.menu.Menu;
 import christmas.promotion.collborator.order.Orders;
+import christmas.promotion.exception.InvalidReservationOrderException;
 import java.util.Optional;
 
 public class Promotions {
@@ -45,7 +46,10 @@ public class Promotions {
         if (totalPaymentAmount < CRITERIA_AMOUNT_FOR_GIVEAWAY) {
             return Optional.empty();
         }
-        return Optional.of(Menu.findBy("샴페인").getPrice());
+        return Optional.of(
+                Menu.findBy("샴페인")
+                        .orElseThrow(InvalidReservationOrderException::new)
+                        .getPrice());
     }
 
     private Optional<Integer> calculateDDayAmount() {

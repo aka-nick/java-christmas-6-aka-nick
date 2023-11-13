@@ -3,6 +3,7 @@ package christmas.promotion.collborator.menu;
 import christmas.promotion.collborator.menu.Food.Category;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class Menu {
 
@@ -23,9 +24,9 @@ public class Menu {
         menu.put("샴페인", new Food(Category.BEVERAGE, "샴페인", 25_000));
     }
 
-    public static Food findBy(String foodName) {
+    public static Optional<Food> findBy(String foodName) {
         try {
-            return menu.get(foodName);
+            return Optional.ofNullable(menu.get(foodName));
         } catch (ClassCastException | NullPointerException e) {
             throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.", e);
         }
