@@ -20,6 +20,14 @@ public class Food {
         return category;
     }
 
+    public boolean isMain() {
+        return category == Category.MAIN;
+    }
+
+    public boolean isDessert() {
+        return category == Category.DESSERT;
+    }
+
     public String getName() {
         return name;
     }
