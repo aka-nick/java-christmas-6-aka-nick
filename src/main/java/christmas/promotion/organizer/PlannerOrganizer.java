@@ -1,6 +1,5 @@
 package christmas.promotion.organizer;
 
-import christmas.promotion.collborator.order.Order;
 import christmas.promotion.collborator.order.Orders;
 import christmas.promotion.collborator.calendar.BenefitAmount;
 import christmas.promotion.collborator.calendar.Calendar;
@@ -10,6 +9,7 @@ import christmas.promotion.collborator.calendar.Promotions;
 import christmas.promotion.enums.GlobalMessage;
 import christmas.promotion.organizer.io.Input;
 import christmas.promotion.organizer.io.Output;
+import christmas.promotion.organizer.viewer.OrderManager;
 import christmas.promotion.organizer.viewer.ReservationManager;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,22 +19,24 @@ public class PlannerOrganizer {
     private final Output output;
     private final Input input;
     private final ReservationManager reservationManager;
+    private final OrderManager orderManager;
 
-    public PlannerOrganizer(Input input, Output output, ReservationManager reservationManager) {
+    public PlannerOrganizer(Input input, Output output, ReservationManager reservationManager, OrderManager orderManager) {
         this.input = input;
         this.output = output;
         this.reservationManager = reservationManager;
+        this.orderManager = orderManager;
     }
 
     public void run() {
 
-        reservationManager.sayGreet();
+        reservationManager.sayGreeting();
 
         Date reservationDate = reservationManager.askReservationDate();
 
-        Orders orders = reservationManager.takeOrders();
+        Orders orders = orderManager.takeOrders();
 
-        output.println("12월 " + reservationDate.date() + "일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
+        reservationManager.announceBenefitPreview(reservationDate, orders);
 
         output.println("<주문 메뉴>");
         List<String> orderedFoods = orders.findAllOrderedFood();
