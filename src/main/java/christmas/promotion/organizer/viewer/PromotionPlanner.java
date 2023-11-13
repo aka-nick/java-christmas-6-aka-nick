@@ -19,64 +19,93 @@ public class PromotionPlanner {
         this.output = output;
     }
 
+    // TODO : 더 줄일 수 있으면 줄여보자
     public void announceBenefitPreview(Date reservationDate, Orders orders) {
-        output.println("12월 " + reservationDate.date() + "일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
+        BenefitAmount benefits = getBenefitAmount(reservationDate, orders);
 
-        output.println("<주문 메뉴>");
-        List<String> orderedFoods = orders.findAllOrderedFood();
-        output.println(String.join(GlobalMessage.NEW_LINE.get(), orderedFoods));
-        output.println();
+        StringBuilder benefitPreviewMessage = new StringBuilder();
+        benefitPreviewMessage
+                .append(announcePreviewMent(reservationDate))
+                .append(findOrderedFoodsNameFrom(orders))
+                .append(findOrderedFoodsNameFrom(orders))
+                .append(calculateTotalPriceFrom(orders))
+                .append(showGiveawayHistoryFrom(benefits))
+                .append(showDiscountHistoryFrom(benefits))
+                .append(calculateTotalAmountOfApplyPromotionFrom(benefits))
+                .append(calculateFinalAmount(orders, benefits))
+                .append(calculatePromotionBadge(benefits));
+    }
 
-        output.println("<할인 전 총주문 금액>");
-        int orderedPrice = orders.calculateTotalPrice();
-        output.println(orderedPrice);
-        output.println();
-
+    private static BenefitAmount getBenefitAmount(Date reservationDate, Orders orders) {
         Promotions promotionsOfReservationDate = Calendar.findPromotionsBy(reservationDate, orders);
-        BenefitAmount benefits = promotionsOfReservationDate.askBenefitAmount();
+        return promotionsOfReservationDate.askBenefitAmount();
+    }
 
-        output.println("<증정 메뉴>");
-        output.println(benefits.askResultOfGiveaway());
-        output.println();
+    private StringBuilder announcePreviewMent(Date reservationDate) {
+        return new StringBuilder()
+                .append("12월").append(reservationDate.date()).append("일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!")
+                .append(GlobalMessage.BLANK_AND_NEW_LINE.get());
+    }
 
-        output.println("<혜택 내역>");
+    private StringBuilder findOrderedFoodsNameFrom(Orders orders) {
+        return new StringBuilder()
+                .append("<주문 메뉴>").append(GlobalMessage.NEW_LINE.get())
+                .append(String.join(GlobalMessage.NEW_LINE.get(), orders.findAllOrderedFood()))
+                .append(GlobalMessage.BLANK_AND_NEW_LINE.get());
+    }
 
-        // TODO : 아래의 if-else문은 전용view로 이동하며 제거될 듯함.
+    private StringBuilder calculateTotalPriceFrom(Orders orders) {
+        return new StringBuilder()
+                .append("<할인 전 총주문 금액>").append(GlobalMessage.NEW_LINE.get())
+                .append(orders.calculateTotalPrice())
+                .append(GlobalMessage.BLANK_AND_NEW_LINE.get());
+    }
+
+    private StringBuilder showGiveawayHistoryFrom(BenefitAmount benefits) {
+        return new StringBuilder()
+                .append("<증정 메뉴>").append(GlobalMessage.NEW_LINE.get())
+                .append(benefits.askResultOfGiveaway())
+                .append(GlobalMessage.BLANK_AND_NEW_LINE.get());
+    }
+
+    // TODO : 더 줄일 수 있으면 줄여보자
+    private StringBuilder showDiscountHistoryFrom(BenefitAmount benefits) {
+        StringBuilder message = new StringBuilder();
+        message.append("<혜택 내역>").append(GlobalMessage.NEW_LINE.get());
+
         if (benefits.isAllDiscountEmpty()) {
-            output.println("없음");
+            return message.append("없음").append(GlobalMessage.BLANK_AND_NEW_LINE.get());
         }
-        else {
-            List<String> benefitMessages = new ArrayList<>();
-            if (benefits.amountOfDDay().isPresent()) {
-                benefitMessages.add("크리스마스 디데이 할인: -" + benefits.amountOfDDay().get() + "원");
-            }
-            if (benefits.amountOfWeekend().isPresent()) {
-                benefitMessages.add("주말 할인: -" + benefits.amountOfWeekend().get() + "원");
-            }
-            if (benefits.amountOfWeekday().isPresent()) {
-                benefitMessages.add("평일 할인: -" + benefits.amountOfWeekday().get() + "원");
-            }
-            if (benefits.amountOfSpecial().isPresent()) {
-                benefitMessages.add("특별 할인: -" + benefits.amountOfSpecial().get() + "원");
-            }
-            if (benefits.amountOfGiveaway().isPresent()) {
-                benefitMessages.add("증정 이벤트: -" + benefits.amountOfGiveaway().get() + "원");
-            }
-            output.println(String.join(GlobalMessage.NEW_LINE.get(), benefitMessages));
-        }
-        output.println();
 
-        output.println("<총혜택 금액>");
-        output.println("-" + benefits.amountOfTotalBenefits() + "원");
-        output.println();
+        List<String> benefitMessages = new ArrayList<>();
+        benefits.amountOfDDay().ifPresent(amount -> benefitMessages.add("크리스마스 디데이 할인: -" + amount + "원"));
+        benefits.amountOfWeekend().ifPresent(amount -> benefitMessages.add("주말 할인: -" + amount + "원"));
+        benefits.amountOfWeekday().ifPresent(amount -> benefitMessages.add("평일 할인: -" + amount + "원"));
+        benefits.amountOfSpecial().ifPresent(amount -> benefitMessages.add("특별 할인: -" + amount + "원"));
+        benefits.amountOfGiveaway().ifPresent(amount -> benefitMessages.add("증정 이벤트: -" + amount + "원"));
+        return message.append(String.join(GlobalMessage.NEW_LINE.get(), benefitMessages))
+                .append(GlobalMessage.BLANK_AND_NEW_LINE.get());
+    }
 
-        output.println("<할인 후 예상 결제 금액>");
-        output.println((orders.calculateTotalPrice() - benefits.amountOfTotalBenefits()) + "원");
-        output.println();
+    private StringBuilder calculateTotalAmountOfApplyPromotionFrom(BenefitAmount benefits) {
+        return new StringBuilder()
+                .append("<총혜택 금액>").append(GlobalMessage.NEW_LINE.get())
+                .append("-").append(benefits.amountOfTotalBenefits()).append("원")
+                .append(GlobalMessage.BLANK_AND_NEW_LINE.get());
+    }
 
-        output.println("<12월 이벤트 배지>");
-        output.println(PromotionBadge.findPromotionBadgeBy(benefits.amountOfTotalBenefits()));
-        output.println();
+    private StringBuilder calculateFinalAmount(Orders orders, BenefitAmount benefits) {
+        return new StringBuilder()
+                .append("<할인 후 예상 결제 금액>")
+                .append(orders.calculateTotalPrice() - benefits.amountOfTotalBenefits()).append("원")
+                .append(GlobalMessage.BLANK_AND_NEW_LINE.get());
+    }
+
+    private StringBuilder calculatePromotionBadge(BenefitAmount benefits) {
+        return new StringBuilder()
+                .append("<12월 이벤트 배지>")
+                .append(PromotionBadge.findPromotionBadgeBy(benefits.amountOfTotalBenefits()))
+                .append(GlobalMessage.BLANK_AND_NEW_LINE.get());
     }
 
 }
