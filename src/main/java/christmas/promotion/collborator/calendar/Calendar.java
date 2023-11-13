@@ -4,6 +4,7 @@ import christmas.promotion.collborator.order.Orders;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class Calendar {
 
@@ -46,9 +47,9 @@ public class Calendar {
         calendar.put(31, new Date(31, Day.SUNDAY, List.of(Promotion.WEEKDAY, Promotion.SPECIAL)));
     }
 
-    public static Date findDate(int numberOfReservationDate) {
+    public static Optional<Date> findDate(int numberOfReservationDate) {
         try {
-            return calendar.get(numberOfReservationDate);
+            return Optional.ofNullable(calendar.get(numberOfReservationDate));
         } catch (ClassCastException | IllegalArgumentException e) {
             throw new IllegalArgumentException("유효하지 않은 날짜입니다. 다시 입력해 주세요.", e);
         }
