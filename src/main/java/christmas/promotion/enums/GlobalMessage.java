@@ -4,7 +4,7 @@ public enum GlobalMessage {
 
     NEW_LINE(System.lineSeparator()),
     BLANK_AND_NEW_LINE(System.lineSeparator().repeat(2)),
-    ERROR_HEADER("[ERROR] "),
+    EXCEPTION_HEADER("[ERROR] "),
     ;
 
     private final String message;

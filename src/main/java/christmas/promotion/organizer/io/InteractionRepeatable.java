@@ -14,7 +14,7 @@ public interface InteractionRepeatable {
                 runnable.run();
                 break;
             } catch (IllegalArgumentException e) {
-                output.println(GlobalMessage.ERROR_HEADER.get() + e.getMessage());
+                output.println(GlobalMessage.EXCEPTION_HEADER.get() + e.getMessage());
             }
         }
     }
@@ -24,7 +24,7 @@ public interface InteractionRepeatable {
             try {
                 return supplier.get();
             } catch (IllegalArgumentException e) {
-                output.println(GlobalMessage.ERROR_HEADER.get() + e.getMessage());
+                output.println(GlobalMessage.EXCEPTION_HEADER.get() + e.getMessage());
             }
         }
     }

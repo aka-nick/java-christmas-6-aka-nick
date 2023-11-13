@@ -2,14 +2,15 @@ package christmas.promotion.organizer;
 
 import christmas.promotion.collborator.order.Order;
 import christmas.promotion.collborator.order.Orders;
-import christmas.promotion.collborator.promotioncalendar.BenefitAmount;
-import christmas.promotion.collborator.promotioncalendar.Calendar;
-import christmas.promotion.collborator.promotioncalendar.Date;
-import christmas.promotion.collborator.promotioncalendar.PromotionBadge;
-import christmas.promotion.collborator.promotioncalendar.Promotions;
+import christmas.promotion.collborator.calendar.BenefitAmount;
+import christmas.promotion.collborator.calendar.Calendar;
+import christmas.promotion.collborator.calendar.Date;
+import christmas.promotion.collborator.calendar.PromotionBadge;
+import christmas.promotion.collborator.calendar.Promotions;
 import christmas.promotion.enums.GlobalMessage;
 import christmas.promotion.organizer.io.Input;
 import christmas.promotion.organizer.io.Output;
+import christmas.promotion.organizer.viewer.ReservationManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,19 +18,19 @@ public class PlannerOrganizer {
 
     private final Output output;
     private final Input input;
+    private final ReservationManager reservationManager;
 
-    public PlannerOrganizer(Input input, Output output) {
+    public PlannerOrganizer(Input input, Output output, ReservationManager reservationManager) {
         this.input = input;
         this.output = output;
+        this.reservationManager = reservationManager;
     }
 
     public void run() {
 
-        output.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
+        reservationManager.greetToGuest();
 
-        // TODO : 예외 시 재입력 처리를 적용한다
-        output.println("12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)");
-        Date reservationDate = Calendar.findDate(input.number());
+        Date reservationDate = reservationManager.askReservationDate();
 
         // TODO : 예외 시 재입력 처리를 적용한다
         output.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
