@@ -16,4 +16,16 @@ public record Orders(List<Order> orders) {
                 .sum();
     }
 
+    public int countMainOrders() {
+        return (int) orders().stream()
+                .filter(Order::isMain)
+                .count();
+    }
+
+    public int countDessertOrders() {
+        return (int) orders().stream()
+                .filter(Order::isDessert)
+                .count();
+    }
+
 }

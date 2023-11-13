@@ -26,4 +26,12 @@ public class Order {
         return food.getPrice() * quantity;
     }
 
+    public boolean isMain() {
+        return food.isMain();
+    }
+
+    public boolean isDessert() {
+        return food.isDessert();
+    }
+
 }
