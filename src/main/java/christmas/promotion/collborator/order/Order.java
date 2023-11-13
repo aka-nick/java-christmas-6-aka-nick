@@ -2,6 +2,7 @@ package christmas.promotion.collborator.order;
 
 import christmas.promotion.collborator.menu.Food;
 import christmas.promotion.collborator.menu.Menu;
+import christmas.promotion.exception.InvalidReservationOrderException;
 
 public class Order {
 
@@ -13,8 +14,10 @@ public class Order {
         this.quantity = quantity;
     }
 
-    public static Order place(OrderFood orderFood) {
-        return new Order(Menu.findBy(orderFood.foodName()), orderFood.foodPrice());
+    public static Order place(String foodName, int foodPrice) {
+        return new Order(
+                Menu.findBy(foodName).orElseThrow(InvalidReservationOrderException::new),
+                foodPrice);
     }
 
     public String foodName() {
