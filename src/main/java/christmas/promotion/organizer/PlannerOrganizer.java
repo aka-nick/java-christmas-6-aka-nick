@@ -50,25 +50,16 @@ public class PlannerOrganizer {
 
         // TODO : 메뉴 리스트가 메뉴 맵으로 개선되면 그에 따른 로직 변경 필요함
         output.println("<할인 전 총주문 금액>");
+        int orderedPrice = orders.calculateTotalPrice();
         // 리스트로 메뉴를 저장했다보니까 메뉴를 순회하면서 찾아야 하는데 이름을 키로 하는 맵으로 하면 더 좋을 거 같다.
-        List<Food> orderedFoods = orders.stream()
-                .map(orderFood ->
-                        menu.stream()
-                                .filter(menuFood -> menuFood.getName().equals(orderFood.getFood().getName()))
-                                .findFirst()
-                                .orElseThrow(() -> new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.")))
-                .toList();
-        int orderedTotalPrice = orderedFoods.stream()
-                .mapToInt(Food::getPrice)
-                .sum();
-        output.println(orderedTotalPrice);
+        output.println(orderedPrice);
         output.println();
 
         // TODO : amountOfGiveaway를 미리 조회해놓을 필요 없음. 오히려 필요할 때 늦게 조회할 수록 좋다는 생각.
         output.println("<증정 메뉴>");
         String resultOfGiveaway = "없음";
         int amountOfGiveaway = 0; // 굳이 여기서 조회해놓지 않아도 될듯. 사용할 곳과 멀어서 가독성이 떨어지고 변경 포인트가 잘 인지되지 않아 불안요소임.
-        if (120_000 <= orderedTotalPrice) {
+        if (120_000 <= orderedPrice) {
             resultOfGiveaway = "샴페인 1개";
             // TODO : 메뉴 리스트를 메뉴 맵으로 변경하게 되면 이 곳의 로직도 변경이 필요할 것
             // 여기도, 맵으로 변경하면 순회할 필요 사라짐

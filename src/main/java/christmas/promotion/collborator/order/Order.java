@@ -2,7 +2,6 @@ package christmas.promotion.collborator.order;
 
 import christmas.promotion.collborator.menu.Food;
 import christmas.promotion.collborator.menu.Menu;
-import java.util.List;
 
 public class Order {
 
@@ -19,12 +18,12 @@ public class Order {
         return new Order(Menu.findBy(foodElements[0]), Integer.parseInt(foodElements[1]));
     }
 
-    public Food getFood() {
-        return food;
+    public String foodName() {
+        return food.getName();
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int foodPrice() {
+        return food.getPrice() * quantity;
     }
 
 }
