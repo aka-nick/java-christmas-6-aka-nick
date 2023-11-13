@@ -1,6 +1,5 @@
 package christmas.promotion.collborator.promotioncalendar;
 
-import christmas.promotion.collborator.menu.Food;
 import christmas.promotion.collborator.order.Orders;
 import java.util.HashMap;
 import java.util.List;
@@ -47,9 +46,17 @@ public class Calendar {
         calendar.put(31, new Date(31, Day.SUNDAY, List.of(Promotion.WEEKDAY, Promotion.SPECIAL)));
     }
 
-    public static Promotions findTodayPromotionsBy(int todayDate, Orders orders) {
+    public static Date findDate(int numberOfReservationDate) {
         try {
-            return new Promotions(calendar.get(todayDate), orders);
+            return calendar.get(numberOfReservationDate);
+        } catch (ClassCastException | IllegalArgumentException e) {
+            throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.", e);
+        }
+    }
+
+    public static Promotions findPromotionsBy(Date reservationDate, Orders orders) {
+        try {
+            return new Promotions(reservationDate, orders);
         } catch (ClassCastException | IllegalArgumentException e) {
             throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.", e);
         }
