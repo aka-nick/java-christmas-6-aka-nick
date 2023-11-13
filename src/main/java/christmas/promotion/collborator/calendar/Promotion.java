@@ -1,4 +1,4 @@
-package christmas.promotion.collborator.promotioncalendar;
+package christmas.promotion.collborator.calendar;
 
 public enum Promotion {
     D_DAY,

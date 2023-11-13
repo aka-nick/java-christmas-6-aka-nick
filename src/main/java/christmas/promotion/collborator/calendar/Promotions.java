@@ -1,4 +1,4 @@
-package christmas.promotion.collborator.promotioncalendar;
+package christmas.promotion.collborator.calendar;
 
 import christmas.promotion.collborator.menu.Menu;
 import christmas.promotion.collborator.order.Orders;

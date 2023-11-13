@@ -1,4 +1,4 @@
-package christmas.promotion.collborator.promotioncalendar;
+package christmas.promotion.collborator.calendar;
 
 import christmas.promotion.collborator.order.Orders;
 import java.util.HashMap;
@@ -50,7 +50,7 @@ public class Calendar {
         try {
             return calendar.get(numberOfReservationDate);
         } catch (ClassCastException | IllegalArgumentException e) {
-            throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.", e);
+            throw new IllegalArgumentException("유효하지 않은 날짜입니다. 다시 입력해 주세요.", e);
         }
     }
 
@@ -58,7 +58,7 @@ public class Calendar {
         try {
             return new Promotions(reservationDate, orders);
         } catch (ClassCastException | IllegalArgumentException e) {
-            throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.", e);
+            throw new IllegalArgumentException("유효하지 않은 날짜입니다. 다시 입력해 주세요.", e);
         }
     }
 
