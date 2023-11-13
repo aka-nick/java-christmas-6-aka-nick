@@ -24,7 +24,11 @@ public class Menu {
     }
 
     public static Food findBy(String foodName) {
-        return menu.get(foodName);
+        try {
+            return menu.get(foodName);
+        } catch (ClassCastException | NullPointerException e) {
+            throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.", e);
+        }
     }
 
 }
