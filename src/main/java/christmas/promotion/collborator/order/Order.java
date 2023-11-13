@@ -2,15 +2,16 @@ package christmas.promotion.collborator.order;
 
 import christmas.promotion.collborator.menu.Food;
 import christmas.promotion.collborator.menu.Menu;
+import java.util.List;
 
 public class Order {
 
     private final Food food;
-    private final int amount;
+    private final int quantity;
 
-    private Order(Food food, int amount) {
+    private Order(Food food, int quantity) {
         this.food = food;
-        this.amount = amount;
+        this.quantity = quantity;
     }
 
     public static Order place(String[] foodElements) {
@@ -22,8 +23,8 @@ public class Order {
         return food;
     }
 
-    public int getAmount() {
-        return amount;
+    public int getQuantity() {
+        return quantity;
     }
 
 }
