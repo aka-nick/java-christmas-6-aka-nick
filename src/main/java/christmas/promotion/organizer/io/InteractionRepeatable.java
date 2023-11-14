@@ -60,20 +60,20 @@ public interface InteractionRepeatable {
      * 즉, 이 메서드를 사용할 때는 발생 위치가 아주 특정되고, 중복 재사용되지 않으며,
      * 좁은 의미를 가진 CustomException을 일으키는 경우에만 한하여 사용하여야 한다.
      */
-    default <T> T supplyInteractionWithCustomException(final Supplier<T> supplier, RuntimeException exception) {
+    default <T> T supplyInteractionWithCustomException(final Supplier<T> supplier, IllegalArgumentException exception) {
         while (true) {
             try {
                 return supplyInteractionWithCustomExceptionInner(supplier, exception);
-            } catch (RuntimeException e) {
+            } catch (IllegalArgumentException e) {
                 output.println(GlobalMessage.EXCEPTION_HEADER.get() + e.getMessage());
             }
         }
     }
 
-    private <T> T supplyInteractionWithCustomExceptionInner(final Supplier<T> supplier, RuntimeException exception) {
+    private <T> T supplyInteractionWithCustomExceptionInner(final Supplier<T> supplier, IllegalArgumentException exception) {
         try {
             return supplier.get();
-        } catch (RuntimeException e) {
+        } catch (IllegalArgumentException e) {
             throw exception;
         }
     }
