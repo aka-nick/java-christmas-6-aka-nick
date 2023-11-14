@@ -12,6 +12,7 @@ import java.util.List;
 
 public class OrderManager implements InteractionRepeatable {
 
+    public static final int QUANTITY_LIMIT_ORDERED_AT_ONCE = 20;
     private final Input input;
     private final Output output;
 
@@ -33,19 +34,20 @@ public class OrderManager implements InteractionRepeatable {
                 throw new InvalidReservationOrderException();
             }
 
-            // TODO : 밸리데이션 로직 메서드 추출 및 중복 코드 제거
-            if (new Orders(reservations.stream()
+            Orders orders = new Orders(reservations.stream()
                     .map(reservation -> reservation.split("-"))
                     .map(foodElements -> Order.place(foodElements[0], Integer.parseInt(foodElements[1])))
-                    .toList()).isAllBeverage()) {
+                    .toList());
+
+            if (orders.isAllBeverage()) {
                 throw new InvalidReservationOrderException();
             }
 
-            return new Orders(reservations.stream()
-                    .map(reservation -> reservation.split("-"))
-                    .map(foodElements ->
-                            Order.place(foodElements[0], Integer.parseInt(foodElements[1])))
-                    .toList());
+            if (QUANTITY_LIMIT_ORDERED_AT_ONCE < orders.countTotalMenu()) {
+                throw new InvalidReservationOrderException();
+            }
+
+            return orders;
         }, new InvalidReservationOrderException());
     }
 

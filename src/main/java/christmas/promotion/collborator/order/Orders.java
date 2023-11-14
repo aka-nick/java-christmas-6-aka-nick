@@ -31,6 +31,12 @@ public record Orders(List<Order> orders) {
                 .count();
     }
 
+    public int countTotalMenu() {
+        return orders.stream()
+                .mapToInt(Order::foodQuantity)
+                .sum();
+    }
+
     public boolean isAllBeverage() {
         return orders().stream()
                 .allMatch(Order::isBeverage);
