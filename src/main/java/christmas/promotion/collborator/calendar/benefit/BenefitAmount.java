@@ -1,35 +1,48 @@
 package christmas.promotion.collborator.calendar.benefit;
 
-import java.util.Optional;
+import christmas.promotion.enums.GlobalMessage;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
-public record BenefitAmount(Optional<Integer> amountOfGiveaway,
-                            Optional<Integer> amountOfDDay,
-                            Optional<Integer> amountOfWeekend,
-                            Optional<Integer> amountOfWeekday,
-                            Optional<Integer> amountOfSpecial) {
+public record BenefitAmount(List<BenefitWrapper> amountOfBenefits) {
 
-    // TODO : 리터럴 제거
+    public static final String NO_BENEFITS = "없음";
+    public static final String ITEM_OF_GIVEAWAY = "샴페인 1개";
+
     public String askResultOfGiveaway() {
-        if (amountOfGiveaway().isEmpty()) {
-            return "없음";
+        if (isNotFoundOfGiveaway()) {
+            return NO_BENEFITS;
         }
-        return "샴페인 1개";
+        return ITEM_OF_GIVEAWAY;
+    }
+
+    private boolean isNotFoundOfGiveaway() {
+        return amountOfBenefits.stream()
+                .noneMatch(benefit -> benefit.equalsBenefitName("증정 이벤트"));
     }
 
     public boolean isAllDiscountEmpty() {
-        return amountOfGiveaway().isEmpty()
-                && amountOfDDay().isEmpty()
-                && amountOfWeekend().isEmpty()
-                && amountOfWeekday().isEmpty()
-                && amountOfSpecial().isEmpty();
+        return amountOfBenefits.stream()
+                .allMatch(BenefitWrapper::isEmpty);
     }
 
     public Integer amountOfTotalBenefits() {
-        return amountOfGiveaway.orElse(0)
-                + amountOfDDay.orElse(0)
-                + amountOfWeekend.orElse(0)
-                + amountOfWeekday.orElse(0)
-                + amountOfSpecial.orElse(0);
+        return amountOfBenefits.stream()
+                .mapToInt(benefit -> benefit.orElse(0))
+                .sum();
+    }
+
+    public String findBenefitMessages() {
+        List<String> benefitMessages = new ArrayList<>();
+        amountOfBenefits.forEach(benefit ->
+                benefit.addMessageIfBenefitExists(benefitMessages));
+
+        if (benefitMessages.isEmpty()) {
+            return NO_BENEFITS;
+        }
+        return benefitMessages.stream()
+                .collect(Collectors.joining(GlobalMessage.NEW_LINE.get()));
     }
 
 }

@@ -1,15 +1,13 @@
 package christmas.promotion.organizer.viewer;
 
-import christmas.promotion.collborator.calendar.BenefitAmount;
 import christmas.promotion.collborator.calendar.Calendar;
 import christmas.promotion.collborator.calendar.Date;
 import christmas.promotion.collborator.calendar.PromotionBadge;
 import christmas.promotion.collborator.calendar.Promotions;
+import christmas.promotion.collborator.calendar.benefit.BenefitAmount;
 import christmas.promotion.collborator.order.Orders;
 import christmas.promotion.enums.GlobalMessage;
 import christmas.promotion.organizer.io.Output;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PromotionPlanner {
 
@@ -19,21 +17,17 @@ public class PromotionPlanner {
         this.output = output;
     }
 
-    // TODO : 더 줄일 수 있으면 줄여보자
     public void announceBenefitPreview(Date reservationDate, Orders orders) {
         BenefitAmount benefits = getBenefitAmount(reservationDate, orders);
-
-        StringBuilder benefitPreviewMessage = new StringBuilder();
-        benefitPreviewMessage
+        output.println(new StringBuilder()
                 .append(announcePreviewMent(reservationDate))
-                .append(findOrderedFoodsNameFrom(orders))
                 .append(findOrderedFoodsNameFrom(orders))
                 .append(calculateTotalPriceFrom(orders))
                 .append(showGiveawayHistoryFrom(benefits))
                 .append(showDiscountHistoryFrom(benefits))
                 .append(calculateTotalAmountOfApplyPromotionFrom(benefits))
                 .append(calculateFinalAmount(orders, benefits))
-                .append(calculatePromotionBadge(benefits));
+                .append(calculatePromotionBadge(benefits)));
     }
 
     private static BenefitAmount getBenefitAmount(Date reservationDate, Orders orders) {
@@ -68,22 +62,11 @@ public class PromotionPlanner {
                 .append(GlobalMessage.BLANK_AND_NEW_LINE.get());
     }
 
-    // TODO : 더 줄일 수 있으면 줄여보자
     private StringBuilder showDiscountHistoryFrom(BenefitAmount benefits) {
         StringBuilder message = new StringBuilder();
         message.append("<혜택 내역>").append(GlobalMessage.NEW_LINE.get());
 
-        if (benefits.isAllDiscountEmpty()) {
-            return message.append("없음").append(GlobalMessage.BLANK_AND_NEW_LINE.get());
-        }
-
-        List<String> benefitMessages = new ArrayList<>();
-        benefits.amountOfDDay().ifPresent(amount -> benefitMessages.add("크리스마스 디데이 할인: -" + amount + "원"));
-        benefits.amountOfWeekend().ifPresent(amount -> benefitMessages.add("주말 할인: -" + amount + "원"));
-        benefits.amountOfWeekday().ifPresent(amount -> benefitMessages.add("평일 할인: -" + amount + "원"));
-        benefits.amountOfSpecial().ifPresent(amount -> benefitMessages.add("특별 할인: -" + amount + "원"));
-        benefits.amountOfGiveaway().ifPresent(amount -> benefitMessages.add("증정 이벤트: -" + amount + "원"));
-        return message.append(String.join(GlobalMessage.NEW_LINE.get(), benefitMessages))
+        return message.append(benefits.findBenefitMessages())
                 .append(GlobalMessage.BLANK_AND_NEW_LINE.get());
     }
 

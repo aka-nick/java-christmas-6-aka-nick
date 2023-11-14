@@ -1,9 +1,15 @@
 package christmas.promotion.collborator.calendar;
 
 import christmas.promotion.collborator.calendar.benefit.BenefitAmount;
+import christmas.promotion.collborator.calendar.benefit.DDayBenefitWrapper;
+import christmas.promotion.collborator.calendar.benefit.GiveawayBenefitWrapper;
+import christmas.promotion.collborator.calendar.benefit.SpecialBenefitWrapper;
+import christmas.promotion.collborator.calendar.benefit.WeekdayBenefitWrapper;
+import christmas.promotion.collborator.calendar.benefit.WeekendBenefitWrapper;
 import christmas.promotion.collborator.menu.Menu;
 import christmas.promotion.collborator.order.Orders;
 import christmas.promotion.exception.InvalidReservationOrderException;
+import java.util.List;
 import java.util.Optional;
 
 public class Promotions {
@@ -27,20 +33,17 @@ public class Promotions {
 
     public BenefitAmount askBenefitAmount() {
         if (totalPaymentAmount < CRITERIA_AMOUNT_FOR_EVENT) {
-            return new BenefitAmount(
-                    Optional.empty(),
-                    Optional.empty(),
-                    Optional.empty(),
-                    Optional.empty(),
-                    Optional.empty());
+            return new BenefitAmount(List.of(new GiveawayBenefitWrapper(Optional.empty()),
+                    new DDayBenefitWrapper(Optional.empty()),
+                    new WeekendBenefitWrapper(Optional.empty()),
+                    new WeekdayBenefitWrapper(Optional.empty()),
+                    new SpecialBenefitWrapper(Optional.empty())));
         }
-
-        return new BenefitAmount(
-                calculateGiveAwayAmount(),
-                calculateDDayAmount(),
-                calculateWeekendAmount(),
-                calculateWeekdayAmount(),
-                calculateSpecialAmount());
+        return new BenefitAmount(List.of(new GiveawayBenefitWrapper(calculateGiveAwayAmount()),
+                new DDayBenefitWrapper(calculateDDayAmount()),
+                new WeekendBenefitWrapper(calculateWeekendAmount()),
+                new WeekdayBenefitWrapper(calculateWeekdayAmount()),
+                new SpecialBenefitWrapper(calculateSpecialAmount())));
     }
 
     private Optional<Integer> calculateGiveAwayAmount() {
@@ -84,34 +87,5 @@ public class Promotions {
         }
         return Optional.of(AMOUNT_OF_SPECIAL_DISCOUNT);
     }
-    /*
-  - 반드시 연산값1이 연산값2보다 우선해야 함.
-  - 연산값1의 내부 계산 결과들을 연산값2와 ‘논리적으로' 공유해야 함. -> 이 부분은 비공개 메서드로 추출하자
-  - 일단 이렇게 해놓고, 그래도 너무 지저분하면 클래스 단위로 리팩토링 하자.
-  */
-
-    // 연산값1(혜택금액)을 반환하는 메서드
-    // 연산값2(토탈결과메시지)을 반환하는 메서드
-    // 연산값3(적용금액)을 반환하는 메서드
-
-/* 여기부터 아래에 닫히기 까지의 행위는 사실 밖에 공개될 필요가 없다.
-  public boolean whetherApplyEvents() {
-    return CRITERIA_AMOUNT_FOR_EVENT_APPLY <= amountOfEventApplyPrice;
-  }
-
-  public boolean whetherApplyDDay() {
-    return promotions.contains(Promotion.D_DAY);
-  }
-  public boolean whetherApplyWeekend() {
-    return promotions.contains(Promotion.WEEKEND);
-  }
-  public boolean whetherApplyWeekday() {
-    return promotions.contains(Promotion.WEEKDAY);
-  }
-  public boolean whetherApplySpecial() {
-    return promotions.contains(Promotion.SPECIAL);
-  }
-*/
-
 
 }

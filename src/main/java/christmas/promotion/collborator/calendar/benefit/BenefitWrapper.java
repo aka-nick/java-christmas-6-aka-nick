@@ -13,17 +13,29 @@ public sealed abstract class BenefitWrapper permits
     private static final String SEPARATOR = ": ";
     private static final String MINUS = "-";
     private static final String WON = "원";
-    protected static String benefitName = "크리스마스 디데이 할인";
+    protected String benefitName = "";
 
     protected Optional<Integer> amountOfBenefit;
 
-    void addResultIfExist(List<String> willBeAdded) {
+    void addMessageIfBenefitExists(List<String> willBeAdded) {
         amountOfBenefit.ifPresent(amount ->
                 willBeAdded.add(getBenefitStringOf(amount)));
     }
 
     protected String getBenefitStringOf(Integer amount) {
         return benefitName + SEPARATOR + MINUS + amount + WON;
+    }
+
+    public boolean isEmpty() {
+        return amountOfBenefit.isEmpty();
+    }
+
+    public Integer orElse(Integer other) {
+        return amountOfBenefit.orElse(other);
+    }
+
+    public boolean equalsBenefitName(String other) {
+        return benefitName.equals(other);
     }
 
 }
