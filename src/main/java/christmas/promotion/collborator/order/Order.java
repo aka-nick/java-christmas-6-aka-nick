@@ -24,8 +24,12 @@ public class Order {
         return food.getName();
     }
 
+    public int foodQuantity() {
+        return quantity;
+    }
+
     public int foodPrice() {
-        return food.getPrice() * quantity;
+        return food.getPrice() * foodQuantity();
     }
 
     public boolean isMain() {
