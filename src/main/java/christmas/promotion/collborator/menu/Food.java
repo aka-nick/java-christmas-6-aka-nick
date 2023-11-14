@@ -4,20 +4,17 @@ import java.util.Objects;
 
 public class Food {
 
-    enum Category { APPETIZER, MAIN, DESSERT, BEVERAGE }
 
+
+    enum Category { APPETIZER, MAIN, DESSERT, BEVERAGE;}
     private final Category category;
+
     private final String name;
     private final int price; // TODO : 추후 Money 타입으로 교체
-
     public Food(Category category, String name, int price) {
         this.category = category;
         this.name = name;
         this.price = price;
-    }
-
-    public Category getCategory() {
-        return category;
     }
 
     public boolean isMain() {
@@ -26,6 +23,10 @@ public class Food {
 
     public boolean isDessert() {
         return category == Category.DESSERT;
+    }
+
+    public boolean isBeverage() {
+        return category == Category.BEVERAGE;
     }
 
     public String getName() {

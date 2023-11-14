@@ -24,6 +24,23 @@ public class OrderManager implements InteractionRepeatable {
         return supplyInteractionWithCustomException(() -> {
             output.println(TAKE_ORDERS);
             List<String> reservations = input.strings(",");
+
+            // TODO : 밸리데이션 로직 메서드 추출
+            if (reservations.size() != reservations.stream()
+                    .map(reservation -> reservation.split("-")[0])
+                    .distinct()
+                    .count()) {
+                throw new InvalidReservationOrderException();
+            }
+
+            // TODO : 밸리데이션 로직 메서드 추출 및 중복 코드 제거
+            if (new Orders(reservations.stream()
+                    .map(reservation -> reservation.split("-"))
+                    .map(foodElements -> Order.place(foodElements[0], Integer.parseInt(foodElements[1])))
+                    .toList()).isAllBeverage()) {
+                throw new InvalidReservationOrderException();
+            }
+
             return new Orders(reservations.stream()
                     .map(reservation -> reservation.split("-"))
                     .map(foodElements ->

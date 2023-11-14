@@ -31,4 +31,9 @@ public record Orders(List<Order> orders) {
                 .count();
     }
 
+    public boolean isAllBeverage() {
+        return orders().stream()
+                .allMatch(Order::isBeverage);
+    }
+
 }

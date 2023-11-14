@@ -47,4 +47,8 @@ public class Order {
         return food.isDessert();
     }
 
+    public boolean isBeverage() {
+        return food.isBeverage();
+    }
+
 }
