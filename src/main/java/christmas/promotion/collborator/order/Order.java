@@ -17,7 +17,14 @@ public class Order {
     public static Order place(String foodName, int foodPrice) {
         return new Order(
                 Menu.findBy(foodName).orElseThrow(InvalidReservationOrderException::new),
-                foodPrice);
+                passValidationOrThrow(foodPrice));
+    }
+
+    private static int passValidationOrThrow(int foodPrice) {
+        if (foodPrice <= 0) {
+            throw new InvalidReservationOrderException();
+        }
+        return foodPrice;
     }
 
     public String foodName() {
