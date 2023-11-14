@@ -14,17 +14,17 @@ public class Order {
         this.quantity = quantity;
     }
 
-    public static Order place(String foodName, int foodPrice) {
+    public static Order place(String foodName, int foodQuantity) {
         return new Order(
                 Menu.findBy(foodName).orElseThrow(InvalidReservationOrderException::new),
-                passValidationOrThrow(foodPrice));
+                passValidationOrThrow(foodQuantity));
     }
 
-    private static int passValidationOrThrow(int foodPrice) {
-        if (foodPrice <= 0) {
+    private static int passValidationOrThrow(int foodQuantity) {
+        if (foodQuantity <= 0 || 20 < foodQuantity) {
             throw new InvalidReservationOrderException();
         }
-        return foodPrice;
+        return foodQuantity;
     }
 
     public String foodName() {
