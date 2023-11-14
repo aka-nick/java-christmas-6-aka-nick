@@ -18,8 +18,9 @@ public sealed abstract class BenefitWrapper permits
     protected Optional<Integer> amountOfBenefit;
 
     void addMessageIfBenefitExists(List<String> willBeAdded) {
-        amountOfBenefit.ifPresent(amount ->
-                willBeAdded.add(getBenefitStringOf(amount)));
+        amountOfBenefit
+                .filter(amount -> 0 < amount)
+                .ifPresent(amount -> willBeAdded.add(getBenefitStringOf(amount)));
     }
 
     protected String getBenefitStringOf(Integer amount) {
