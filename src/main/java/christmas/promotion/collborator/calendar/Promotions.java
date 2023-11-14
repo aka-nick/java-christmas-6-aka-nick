@@ -1,5 +1,6 @@
 package christmas.promotion.collborator.calendar;
 
+import christmas.promotion.collborator.calendar.benefit.BenefitAmount;
 import christmas.promotion.collborator.menu.Menu;
 import christmas.promotion.collborator.order.Orders;
 import christmas.promotion.exception.InvalidReservationOrderException;
