@@ -4,9 +4,8 @@ import java.util.Objects;
 
 public class Food {
 
-
-
     enum Category { APPETIZER, MAIN, DESSERT, BEVERAGE;}
+
     private final Category category;
 
     private final String name;
