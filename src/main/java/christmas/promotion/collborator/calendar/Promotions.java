@@ -1,5 +1,12 @@
 package christmas.promotion.collborator.calendar;
 
+import static christmas.promotion.collborator.calendar.PromotionsAmount.AMOUNT_OF_SPECIAL_DISCOUNT;
+import static christmas.promotion.collborator.calendar.PromotionsAmount.AMOUNT_OF_WEEK_DISCOUNT;
+import static christmas.promotion.collborator.calendar.PromotionsAmount.CRITERIA_AMOUNT_FOR_EVENT;
+import static christmas.promotion.collborator.calendar.PromotionsAmount.CRITERIA_AMOUNT_FOR_GIVEAWAY;
+import static christmas.promotion.collborator.calendar.PromotionsAmount.DEFAULT_AMOUNT_OF_D_DAY_DISCOUNT;
+import static christmas.promotion.collborator.calendar.PromotionsAmount.INCREASE_AMOUNT_OF_D_DAY_DISCOUNT;
+
 import christmas.promotion.collborator.calendar.benefit.BenefitAmount;
 import christmas.promotion.collborator.calendar.benefit.DDayBenefitWrapper;
 import christmas.promotion.collborator.calendar.benefit.GiveawayBenefitWrapper;
@@ -14,13 +21,6 @@ import java.util.Optional;
 
 public class Promotions {
 
-    private static final int CRITERIA_AMOUNT_FOR_EVENT = 10_000;
-    private static final int CRITERIA_AMOUNT_FOR_GIVEAWAY = 120_000;
-    private static final int DEFAULT_AMOUNT_OF_D_DAY_DISCOUNT = 1_000;
-    private static final int INCREASE_AMOUNT_OF_D_DAY_DISCOUNT = 100;
-    private static final int AMOUNT_OF_WEEK_DISCOUNT = 2_023;
-    private static final int AMOUNT_OF_SPECIAL_DISCOUNT = 1_000;
-
     private final Date today;
     private final Orders orders;
     private final int totalPaymentAmount;
@@ -32,7 +32,7 @@ public class Promotions {
     }
 
     public BenefitAmount askBenefitAmount() {
-        if (totalPaymentAmount < CRITERIA_AMOUNT_FOR_EVENT) {
+        if (totalPaymentAmount < CRITERIA_AMOUNT_FOR_EVENT.get()) {
             return new BenefitAmount(List.of(new GiveawayBenefitWrapper(Optional.empty()),
                     new DDayBenefitWrapper(Optional.empty()),
                     new WeekendBenefitWrapper(Optional.empty()),
@@ -47,7 +47,7 @@ public class Promotions {
     }
 
     private Optional<Integer> calculateGiveAwayAmount() {
-        if (totalPaymentAmount < CRITERIA_AMOUNT_FOR_GIVEAWAY) {
+        if (totalPaymentAmount < CRITERIA_AMOUNT_FOR_GIVEAWAY.get()) {
             return Optional.empty();
         }
         return Optional.of(
@@ -62,7 +62,7 @@ public class Promotions {
         }
         final int dayOfIncrease = today.date() - 1;
         return Optional.of(
-                DEFAULT_AMOUNT_OF_D_DAY_DISCOUNT + (dayOfIncrease * INCREASE_AMOUNT_OF_D_DAY_DISCOUNT));
+                DEFAULT_AMOUNT_OF_D_DAY_DISCOUNT.get() + (dayOfIncrease * INCREASE_AMOUNT_OF_D_DAY_DISCOUNT.get()));
     }
 
     private Optional<Integer> calculateWeekendAmount() {
@@ -70,7 +70,7 @@ public class Promotions {
             return Optional.empty();
         }
         return Optional.of(
-                orders.countMainOrders() * AMOUNT_OF_WEEK_DISCOUNT);
+                orders.countMainOrders() * AMOUNT_OF_WEEK_DISCOUNT.get());
     }
 
     private Optional<Integer> calculateWeekdayAmount() {
@@ -78,14 +78,14 @@ public class Promotions {
             return Optional.empty();
         }
         return Optional.of(
-                orders.countDessertOrders() * AMOUNT_OF_WEEK_DISCOUNT);
+                orders.countDessertOrders() * AMOUNT_OF_WEEK_DISCOUNT.get());
     }
 
     private Optional<Integer> calculateSpecialAmount() {
         if (!today.contains(Promotion.SPECIAL)) {
             return Optional.empty();
         }
-        return Optional.of(AMOUNT_OF_SPECIAL_DISCOUNT);
+        return Optional.of(AMOUNT_OF_SPECIAL_DISCOUNT.get());
     }
 
 }
