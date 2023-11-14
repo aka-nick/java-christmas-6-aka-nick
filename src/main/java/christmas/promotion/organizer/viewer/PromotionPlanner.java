@@ -1,5 +1,17 @@
 package christmas.promotion.organizer.viewer;
 
+import static christmas.promotion.enums.organizer.viewer.PromotionPlannerMessage.ANNOUNCE_PREVIEW_AFTER;
+import static christmas.promotion.enums.organizer.viewer.PromotionPlannerMessage.ANNOUNCE_PREVIEW_BEFORE;
+import static christmas.promotion.enums.organizer.viewer.PromotionPlannerMessage.MINUS_AMOUNT_OF_BENEFITS;
+import static christmas.promotion.enums.organizer.viewer.PromotionPlannerMessage.TITLE_AMOUNT_OF_BEFORE_DISCOUNT;
+import static christmas.promotion.enums.organizer.viewer.PromotionPlannerMessage.TITLE_AMOUNT_OF_BENEFITS;
+import static christmas.promotion.enums.organizer.viewer.PromotionPlannerMessage.TITLE_AMOUNT_OF_EXPECTED;
+import static christmas.promotion.enums.organizer.viewer.PromotionPlannerMessage.TITLE_BENEFITS;
+import static christmas.promotion.enums.organizer.viewer.PromotionPlannerMessage.TITLE_GIVEAWAY;
+import static christmas.promotion.enums.organizer.viewer.PromotionPlannerMessage.TITLE_ORDER_FOOD_NAME;
+import static christmas.promotion.enums.organizer.viewer.PromotionPlannerMessage.TITLE_PROMOTION_BADGE;
+import static christmas.promotion.enums.organizer.viewer.PromotionPlannerMessage.WON_AMOUNT_OF_BENEFITS;
+
 import christmas.promotion.collborator.calendar.Calendar;
 import christmas.promotion.collborator.calendar.Date;
 import christmas.promotion.collborator.calendar.PromotionBadge;
@@ -20,11 +32,11 @@ public class PromotionPlanner {
     public void announceBenefitPreview(Date reservationDate, Orders orders) {
         BenefitAmount benefits = getBenefitAmount(reservationDate, orders);
         output.println(new StringBuilder()
-                .append(announcePreviewMent(reservationDate))
+                .append(announcePreview(reservationDate))
                 .append(findOrderedFoodsNameFrom(orders))
                 .append(calculateTotalPriceFrom(orders))
                 .append(showGiveawayHistoryFrom(benefits))
-                .append(showDiscountHistoryFrom(benefits))
+                .append(showBenefitsFrom(benefits))
                 .append(calculateTotalAmountOfApplyPromotionFrom(benefits))
                 .append(calculateFinalAmount(orders, benefits))
                 .append(calculatePromotionBadge(benefits)));
@@ -35,36 +47,36 @@ public class PromotionPlanner {
         return promotionsOfReservationDate.askBenefitAmount();
     }
 
-    private StringBuilder announcePreviewMent(Date reservationDate) {
+    private StringBuilder announcePreview(Date reservationDate) {
         return new StringBuilder()
-                .append("12월").append(reservationDate.date()).append("일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!")
+                .append(ANNOUNCE_PREVIEW_BEFORE).append(reservationDate.date()).append(ANNOUNCE_PREVIEW_AFTER)
                 .append(GlobalMessage.BLANK_AND_NEW_LINE.get());
     }
 
     private StringBuilder findOrderedFoodsNameFrom(Orders orders) {
         return new StringBuilder()
-                .append("<주문 메뉴>").append(GlobalMessage.NEW_LINE.get())
+                .append(TITLE_ORDER_FOOD_NAME).append(GlobalMessage.NEW_LINE.get())
                 .append(String.join(GlobalMessage.NEW_LINE.get(), orders.findAllOrderedFood()))
                 .append(GlobalMessage.BLANK_AND_NEW_LINE.get());
     }
 
     private StringBuilder calculateTotalPriceFrom(Orders orders) {
         return new StringBuilder()
-                .append("<할인 전 총주문 금액>").append(GlobalMessage.NEW_LINE.get())
+                .append(TITLE_AMOUNT_OF_BEFORE_DISCOUNT).append(GlobalMessage.NEW_LINE.get())
                 .append(orders.calculateTotalPrice())
                 .append(GlobalMessage.BLANK_AND_NEW_LINE.get());
     }
 
     private StringBuilder showGiveawayHistoryFrom(BenefitAmount benefits) {
         return new StringBuilder()
-                .append("<증정 메뉴>").append(GlobalMessage.NEW_LINE.get())
+                .append(TITLE_GIVEAWAY).append(GlobalMessage.NEW_LINE.get())
                 .append(benefits.askResultOfGiveaway())
                 .append(GlobalMessage.BLANK_AND_NEW_LINE.get());
     }
 
-    private StringBuilder showDiscountHistoryFrom(BenefitAmount benefits) {
+    private StringBuilder showBenefitsFrom(BenefitAmount benefits) {
         StringBuilder message = new StringBuilder();
-        message.append("<혜택 내역>").append(GlobalMessage.NEW_LINE.get());
+        message.append(TITLE_BENEFITS).append(GlobalMessage.NEW_LINE.get());
 
         return message.append(benefits.findBenefitMessages())
                 .append(GlobalMessage.BLANK_AND_NEW_LINE.get());
@@ -72,21 +84,21 @@ public class PromotionPlanner {
 
     private StringBuilder calculateTotalAmountOfApplyPromotionFrom(BenefitAmount benefits) {
         return new StringBuilder()
-                .append("<총혜택 금액>").append(GlobalMessage.NEW_LINE.get())
-                .append("-").append(benefits.amountOfTotalBenefits()).append("원")
+                .append(TITLE_AMOUNT_OF_BENEFITS).append(GlobalMessage.NEW_LINE.get())
+                .append(MINUS_AMOUNT_OF_BENEFITS).append(benefits.amountOfTotalBenefits()).append(WON_AMOUNT_OF_BENEFITS)
                 .append(GlobalMessage.BLANK_AND_NEW_LINE.get());
     }
 
     private StringBuilder calculateFinalAmount(Orders orders, BenefitAmount benefits) {
         return new StringBuilder()
-                .append("<할인 후 예상 결제 금액>")
+                .append(TITLE_AMOUNT_OF_EXPECTED)
                 .append(orders.calculateTotalPrice() - benefits.amountOfTotalBenefits()).append("원")
                 .append(GlobalMessage.BLANK_AND_NEW_LINE.get());
     }
 
     private StringBuilder calculatePromotionBadge(BenefitAmount benefits) {
         return new StringBuilder()
-                .append("<12월 이벤트 배지>")
+                .append(TITLE_PROMOTION_BADGE)
                 .append(PromotionBadge.findPromotionBadgeBy(benefits.amountOfTotalBenefits()))
                 .append(GlobalMessage.BLANK_AND_NEW_LINE.get());
     }
