@@ -1,4 +1,4 @@
-package christmas.promotion.enums.exception;
+package christmas.promotion.messages.exception;
 
 public enum InvalidReservationOrderExceptionMessage {
 

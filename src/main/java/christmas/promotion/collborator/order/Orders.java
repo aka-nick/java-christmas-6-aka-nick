@@ -1,12 +1,15 @@
 package christmas.promotion.collborator.order;
 
+import static christmas.promotion.messages.collaborator.order.OrdersMessage.SEPARATOR;
+import static christmas.promotion.messages.collaborator.order.OrdersMessage.UNIT_FOOD_NAME;
+
 import java.util.List;
 
 public record Orders(List<Order> orders) {
 
-    public List<String> findAllOrderedFood() {
+    public List<String> findAllOrderedMenu() {
         return orders().stream()
-                .map(Order::foodName)
+                .map(order -> order.foodName() + SEPARATOR + order.foodQuantity() + UNIT_FOOD_NAME)
                 .toList();
     }
 

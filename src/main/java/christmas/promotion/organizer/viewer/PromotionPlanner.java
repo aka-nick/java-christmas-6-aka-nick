@@ -1,13 +1,13 @@
 package christmas.promotion.organizer.viewer;
 
-import static christmas.promotion.enums.organizer.viewer.PromotionPlannerMessage.getBenefitsMessage;
-import static christmas.promotion.enums.organizer.viewer.PromotionPlannerMessage.getFinalAmountMessage;
-import static christmas.promotion.enums.organizer.viewer.PromotionPlannerMessage.getGiveawayHistoryMessage;
-import static christmas.promotion.enums.organizer.viewer.PromotionPlannerMessage.getOrderFoodNameMessage;
-import static christmas.promotion.enums.organizer.viewer.PromotionPlannerMessage.getPreviewMessage;
-import static christmas.promotion.enums.organizer.viewer.PromotionPlannerMessage.getPromotionBadgeMessage;
-import static christmas.promotion.enums.organizer.viewer.PromotionPlannerMessage.getTotalAmountOfApplyPromotionMessage;
-import static christmas.promotion.enums.organizer.viewer.PromotionPlannerMessage.getTotalPriceMessage;
+import static christmas.promotion.messages.organizer.viewer.PromotionPlannerMessage.getBenefitsMessage;
+import static christmas.promotion.messages.organizer.viewer.PromotionPlannerMessage.getFinalAmountMessage;
+import static christmas.promotion.messages.organizer.viewer.PromotionPlannerMessage.getGiveawayHistoryMessage;
+import static christmas.promotion.messages.organizer.viewer.PromotionPlannerMessage.getOrderedMenuMessage;
+import static christmas.promotion.messages.organizer.viewer.PromotionPlannerMessage.getPreviewMessage;
+import static christmas.promotion.messages.organizer.viewer.PromotionPlannerMessage.getPromotionBadgeMessage;
+import static christmas.promotion.messages.organizer.viewer.PromotionPlannerMessage.getTotalAmountOfApplyPromotionMessage;
+import static christmas.promotion.messages.organizer.viewer.PromotionPlannerMessage.getTotalPriceMessage;
 
 import christmas.promotion.collborator.calendar.Calendar;
 import christmas.promotion.collborator.calendar.Date;
@@ -28,7 +28,7 @@ public class PromotionPlanner {
         BenefitAmount benefits = getBenefitAmount(reservationDate, orders);
 
         output.println(getPreviewMessage(reservationDate.date())
-                + getOrderFoodNameMessage(orders.findAllOrderedFood())
+                + getOrderedMenuMessage(orders.findAllOrderedMenu())
                 + getTotalPriceMessage(orders.calculateTotalPrice())
                 + getGiveawayHistoryMessage(benefits.askResultOfGiveaway())
                 + getBenefitsMessage(benefits.findBenefitMessages())

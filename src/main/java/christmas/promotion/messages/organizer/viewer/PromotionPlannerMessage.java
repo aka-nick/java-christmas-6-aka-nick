@@ -1,7 +1,7 @@
-package christmas.promotion.enums.organizer.viewer;
+package christmas.promotion.messages.organizer.viewer;
 
 import christmas.promotion.collborator.calendar.PromotionBadge;
-import christmas.promotion.enums.GlobalMessage;
+import christmas.promotion.messages.GlobalMessage;
 import java.util.List;
 
 public enum PromotionPlannerMessage {
@@ -34,15 +34,15 @@ public enum PromotionPlannerMessage {
                 + GlobalMessage.BLANK_AND_NEW_LINE.get();
     }
 
-    public static String getOrderFoodNameMessage(List<String> orderedFood) {
+    public static String getOrderedMenuMessage(List<String> orderedMenus) {
         return TITLE_ORDER_FOOD_NAME.get() + GlobalMessage.NEW_LINE.get()
-                + String.join(GlobalMessage.NEW_LINE.get(), orderedFood)
+                + String.join(GlobalMessage.NEW_LINE.get(), orderedMenus)
                 + GlobalMessage.BLANK_AND_NEW_LINE.get();
     }
 
     public static String getTotalPriceMessage(int totalPrice) {
         return TITLE_AMOUNT_OF_BEFORE_DISCOUNT.get() + GlobalMessage.NEW_LINE.get()
-                + totalPrice
+                + totalPrice + WON_AMOUNT_OF_BENEFITS.get()
                 + GlobalMessage.BLANK_AND_NEW_LINE.get();
     }
 
@@ -65,13 +65,13 @@ public enum PromotionPlannerMessage {
     }
 
     public static String getFinalAmountMessage(int totalOrderPrice, int totalBenefitAmount) {
-        return TITLE_AMOUNT_OF_EXPECTED.get()
+        return TITLE_AMOUNT_OF_EXPECTED.get() + GlobalMessage.NEW_LINE.get()
                 + (totalOrderPrice - totalBenefitAmount) + WON_AMOUNT_OF_BENEFITS.get()
                 + GlobalMessage.BLANK_AND_NEW_LINE.get();
     }
 
     public static String getPromotionBadgeMessage(int totalBenefitAmount) {
-        return TITLE_PROMOTION_BADGE.get()
+        return TITLE_PROMOTION_BADGE.get() + GlobalMessage.NEW_LINE.get()
                 + PromotionBadge.findPromotionBadgeBy(totalBenefitAmount)
                 + GlobalMessage.BLANK_AND_NEW_LINE.get();
     }

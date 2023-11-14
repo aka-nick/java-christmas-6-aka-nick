@@ -1,7 +1,7 @@
 package christmas.promotion.organizer.io;
 
 import christmas.config.Dependency;
-import christmas.promotion.enums.GlobalMessage;
+import christmas.promotion.messages.GlobalMessage;
 import java.util.function.Supplier;
 
 public interface InteractionRepeatable {

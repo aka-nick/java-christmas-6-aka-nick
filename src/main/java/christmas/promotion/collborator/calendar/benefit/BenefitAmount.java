@@ -1,6 +1,6 @@
 package christmas.promotion.collborator.calendar.benefit;
 
-import christmas.promotion.enums.GlobalMessage;
+import christmas.promotion.messages.GlobalMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
