@@ -1,5 +1,8 @@
 package christmas.promotion.collborator.calendar.benefit;
 
+import static christmas.promotion.messages.collaborator.calendar.benefit.BenefitWrapperMessage.MINUS;
+import static christmas.promotion.messages.collaborator.calendar.benefit.BenefitWrapperMessage.SEPARATOR;
+
 import christmas.promotion.collborator.generic.Won;
 import java.util.List;
 import java.util.Optional;
@@ -11,9 +14,6 @@ public sealed abstract class BenefitWrapper permits
         WeekendBenefitWrapper,
         GiveawayBenefitWrapper {
 
-    private static final String SEPARATOR = ": ";
-    private static final String MINUS = "-";
-    private static final String WON = "원";
     protected String benefitName = "";
 
     protected Optional<Won> amountOfBenefit;
@@ -25,7 +25,7 @@ public sealed abstract class BenefitWrapper permits
     }
 
     protected String getBenefitStringOf(Won formattedAmount) {
-        return benefitName + SEPARATOR + MINUS + formattedAmount;
+        return benefitName + SEPARATOR.get() + MINUS.get() + formattedAmount;
     }
 
     public boolean isEmpty() {
