@@ -3,6 +3,7 @@ package christmas.promotion.collborator.calendar.benefit;
 import christmas.promotion.messages.GlobalMessage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public record BenefitAmount(List<BenefitWrapper> amountOfBenefits) {
@@ -43,6 +44,31 @@ public record BenefitAmount(List<BenefitWrapper> amountOfBenefits) {
         }
         return benefitMessages.stream()
                 .collect(Collectors.joining(GlobalMessage.NEW_LINE.get()));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        BenefitAmount that = (BenefitAmount) o;
+
+        List<String> thisBenefitNames = amountOfBenefits.stream()
+                .map(thisBenefitWrapper -> thisBenefitWrapper.benefitName)
+                .toList();
+        List<String> thatBenefitNames = that.amountOfBenefits.stream()
+                .map(thisBenefitWrapper -> thisBenefitWrapper.benefitName)
+                .toList();
+
+        return Objects.equals(thisBenefitNames, thatBenefitNames);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(amountOfBenefits);
     }
 
 }

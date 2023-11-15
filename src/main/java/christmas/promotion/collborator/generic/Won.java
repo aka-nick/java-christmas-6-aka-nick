@@ -2,16 +2,16 @@ package christmas.promotion.collborator.generic;
 
 import java.math.BigInteger;
 
-public class Money {
+public class Won {
 
     private final BigInteger amount;
 
-    private Money(BigInteger amount) {
+    private Won(BigInteger amount) {
         this.amount = amount;
     }
 
-    public static Money won(long amount) {
-        return new Money(BigInteger.valueOf(amount));
+    public static Won won(long amount) {
+        return new Won(BigInteger.valueOf(amount));
     }
 
 }
