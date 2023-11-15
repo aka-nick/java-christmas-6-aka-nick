@@ -26,22 +26,22 @@ public class OrderManager implements InteractionRepeatable {
     public Orders takeOrders() {
         return supplyInteractionWithException(() -> {
             output.println(TAKE_ORDERS);
-            return new Orders(receivingCustomerOrderRequests().stream()
-                    .map(convertToFoodnameAndQuantity())
-                    .map(placeOrderByFoodnameAndQuantity())
+            return new Orders(receiveCustomerOrderRequests().stream()
+                    .map(convertToFoodNameAndQuantity())
+                    .map(placeOrderByFoodNameAndQuantity())
                     .toList());
         }, new InvalidReservationOrderException());
     }
 
-    private List<String> receivingCustomerOrderRequests() {
+    private List<String> receiveCustomerOrderRequests() {
         return input.strings(ORDER_DELIMITER.get());
     }
 
-    private static Function<String, String[]> convertToFoodnameAndQuantity() {
+    private static Function<String, String[]> convertToFoodNameAndQuantity() {
         return reservation -> reservation.split(ORDER_FOODNAME_AND_QUANTITY_SEPARATOR.get());
     }
 
-    private static Function<String[], Order> placeOrderByFoodnameAndQuantity() {
+    private static Function<String[], Order> placeOrderByFoodNameAndQuantity() {
         return foodElements -> Order.place(foodElements[0], Integer.parseInt(foodElements[1]));
     }
 
