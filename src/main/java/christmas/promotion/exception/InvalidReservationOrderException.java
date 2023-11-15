@@ -1,6 +1,6 @@
 package christmas.promotion.exception;
 
-import static christmas.promotion.messages.exception.InvalidReservationOrderExceptionMessage.EXCEPTION_INVALID_ORDER;
+import static christmas.promotion.enums.exception.InvalidReservationOrderExceptionMessage.EXCEPTION_INVALID_ORDER;
 
 public class InvalidReservationOrderException extends IllegalArgumentException{
 

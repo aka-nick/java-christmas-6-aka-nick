@@ -1,7 +1,7 @@
 package christmas.promotion.organizer.manager;
 
-import static christmas.promotion.messages.organizer.manager.ReservationManagerMessage.ASK_RESERVATION_DATE;
-import static christmas.promotion.messages.organizer.manager.ReservationManagerMessage.SAY_GREETING;
+import static christmas.promotion.enums.organizer.manager.ReservationManagerMessage.ASK_RESERVATION_DATE;
+import static christmas.promotion.enums.organizer.manager.ReservationManagerMessage.SAY_GREETING;
 
 import christmas.promotion.collborator.calendar.Date;
 import christmas.promotion.exception.InvalidReservationDateException;

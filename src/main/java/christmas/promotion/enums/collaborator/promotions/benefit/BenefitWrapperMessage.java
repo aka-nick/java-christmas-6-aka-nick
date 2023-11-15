@@ -1,4 +1,4 @@
-package christmas.promotion.messages.collaborator.promotions.benefit;
+package christmas.promotion.enums.collaborator.promotions.benefit;
 
 public enum BenefitWrapperMessage {
 

@@ -1,4 +1,4 @@
-package christmas.promotion.messages.io;
+package christmas.promotion.enums.io;
 
 public enum ConsoleInputMessage {
 

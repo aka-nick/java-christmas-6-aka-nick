@@ -1,4 +1,4 @@
-package christmas.promotion.collborator.promotions;
+package christmas.promotion.enums.collaborator.promotions;
 
 public enum PromotionsAmount {
 

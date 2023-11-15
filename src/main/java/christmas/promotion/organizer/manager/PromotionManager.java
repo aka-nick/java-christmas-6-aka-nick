@@ -1,13 +1,13 @@
 package christmas.promotion.organizer.manager;
 
-import static christmas.promotion.messages.organizer.manager.PromotionManagerMessage.getBenefitsMessage;
-import static christmas.promotion.messages.organizer.manager.PromotionManagerMessage.getFinalAmountMessage;
-import static christmas.promotion.messages.organizer.manager.PromotionManagerMessage.getGiveawayHistoryMessage;
-import static christmas.promotion.messages.organizer.manager.PromotionManagerMessage.getOrderedMenuMessage;
-import static christmas.promotion.messages.organizer.manager.PromotionManagerMessage.getPreviewMessage;
-import static christmas.promotion.messages.organizer.manager.PromotionManagerMessage.getPromotionBadgeMessage;
-import static christmas.promotion.messages.organizer.manager.PromotionManagerMessage.getTotalAmountOfApplyPromotionMessage;
-import static christmas.promotion.messages.organizer.manager.PromotionManagerMessage.getTotalPriceMessage;
+import static christmas.promotion.enums.organizer.manager.PromotionManagerMessage.getBenefitsMessage;
+import static christmas.promotion.enums.organizer.manager.PromotionManagerMessage.getFinalAmountMessage;
+import static christmas.promotion.enums.organizer.manager.PromotionManagerMessage.getGiveawayHistoryMessage;
+import static christmas.promotion.enums.organizer.manager.PromotionManagerMessage.getOrderedMenuMessage;
+import static christmas.promotion.enums.organizer.manager.PromotionManagerMessage.getPreviewMessage;
+import static christmas.promotion.enums.organizer.manager.PromotionManagerMessage.getPromotionBadgeMessage;
+import static christmas.promotion.enums.organizer.manager.PromotionManagerMessage.getTotalAmountOfApplyPromotionMessage;
+import static christmas.promotion.enums.organizer.manager.PromotionManagerMessage.getTotalPriceMessage;
 
 import christmas.promotion.collborator.calendar.Calendar;
 import christmas.promotion.collborator.calendar.Date;

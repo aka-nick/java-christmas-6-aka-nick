@@ -1,4 +1,4 @@
-package christmas.promotion.messages.organizer.manager;
+package christmas.promotion.enums.organizer.manager;
 
 public enum ReservationManagerMessage {
 

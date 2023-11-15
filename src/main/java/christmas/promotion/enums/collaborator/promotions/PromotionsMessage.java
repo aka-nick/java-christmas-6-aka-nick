@@ -1,14 +1,13 @@
-package christmas.promotion.messages.collaborator.order;
+package christmas.promotion.enums.collaborator.promotions;
 
-public enum OrdersMessage {
+public enum PromotionsMessage {
 
-    SEPARATOR(" "),
-    UNIT_FOOD_NAME("개"),
+    GIVEAWAY_MENU_NAME("샴페인"),
     ;
 
     private final String message;
 
-    OrdersMessage(String message) {
+    PromotionsMessage(String message) {
         this.message = message;
     }
 

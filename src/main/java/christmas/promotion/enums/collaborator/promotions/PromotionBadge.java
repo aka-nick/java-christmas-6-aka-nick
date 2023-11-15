@@ -1,4 +1,4 @@
-package christmas.promotion.collborator.promotions;
+package christmas.promotion.enums.collaborator.promotions;
 
 import christmas.promotion.collborator.generic.Won;
 import java.util.Arrays;

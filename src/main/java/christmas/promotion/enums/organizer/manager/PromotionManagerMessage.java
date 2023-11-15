@@ -1,8 +1,8 @@
-package christmas.promotion.messages.organizer.manager;
+package christmas.promotion.enums.organizer.manager;
 
-import christmas.promotion.collborator.promotions.PromotionBadge;
+import christmas.promotion.enums.collaborator.promotions.PromotionBadge;
 import christmas.promotion.collborator.generic.Won;
-import christmas.promotion.messages.GlobalMessage;
+import christmas.promotion.enums.GlobalMessage;
 import java.util.List;
 
 public enum PromotionManagerMessage {

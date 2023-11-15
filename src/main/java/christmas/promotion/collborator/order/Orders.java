@@ -1,7 +1,7 @@
 package christmas.promotion.collborator.order;
 
-import static christmas.promotion.messages.collaborator.order.OrdersMessage.SEPARATOR;
-import static christmas.promotion.messages.collaborator.order.OrdersMessage.UNIT_FOOD_NAME;
+import static christmas.promotion.enums.collaborator.order.OrdersMessage.SEPARATOR;
+import static christmas.promotion.enums.collaborator.order.OrdersMessage.UNIT_FOOD_NAME;
 
 import christmas.promotion.collborator.generic.Won;
 import christmas.promotion.exception.InvalidReservationOrderException;

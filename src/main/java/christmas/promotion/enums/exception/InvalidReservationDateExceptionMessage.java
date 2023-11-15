@@ -1,4 +1,4 @@
-package christmas.promotion.messages.exception;
+package christmas.promotion.enums.exception;
 
 public enum InvalidReservationDateExceptionMessage {
 

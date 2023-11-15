@@ -1,7 +1,7 @@
 package christmas.promotion.collborator.promotions.benefit;
 
-import static christmas.promotion.messages.collaborator.promotions.benefit.BenefitWrapperMessage.MINUS;
-import static christmas.promotion.messages.collaborator.promotions.benefit.BenefitWrapperMessage.SEPARATOR;
+import static christmas.promotion.enums.collaborator.promotions.benefit.BenefitWrapperMessage.MINUS;
+import static christmas.promotion.enums.collaborator.promotions.benefit.BenefitWrapperMessage.SEPARATOR;
 
 import christmas.promotion.collborator.generic.Won;
 import java.util.List;

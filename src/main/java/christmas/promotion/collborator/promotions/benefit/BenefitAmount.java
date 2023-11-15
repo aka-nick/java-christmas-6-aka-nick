@@ -1,7 +1,7 @@
 package christmas.promotion.collborator.promotions.benefit;
 
 import christmas.promotion.collborator.generic.Won;
-import christmas.promotion.messages.GlobalMessage;
+import christmas.promotion.enums.GlobalMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

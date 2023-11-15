@@ -1,4 +1,4 @@
-package christmas.promotion.messages;
+package christmas.promotion.enums;
 
 public enum GlobalMessage {
 

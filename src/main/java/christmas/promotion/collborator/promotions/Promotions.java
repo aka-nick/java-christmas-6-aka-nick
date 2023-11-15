@@ -1,12 +1,12 @@
 package christmas.promotion.collborator.promotions;
 
-import static christmas.promotion.collborator.promotions.PromotionsAmount.AMOUNT_OF_SPECIAL_DISCOUNT;
-import static christmas.promotion.collborator.promotions.PromotionsAmount.AMOUNT_OF_WEEK_DISCOUNT;
-import static christmas.promotion.collborator.promotions.PromotionsAmount.CRITERIA_AMOUNT_FOR_EVENT;
-import static christmas.promotion.collborator.promotions.PromotionsAmount.CRITERIA_AMOUNT_FOR_GIVEAWAY;
-import static christmas.promotion.collborator.promotions.PromotionsAmount.DEFAULT_AMOUNT_OF_D_DAY_DISCOUNT;
-import static christmas.promotion.collborator.promotions.PromotionsAmount.INCREASE_AMOUNT_OF_D_DAY_DISCOUNT;
-import static christmas.promotion.messages.collaborator.promotions.PromotionsMessage.*;
+import static christmas.promotion.enums.collaborator.promotions.PromotionsAmount.AMOUNT_OF_SPECIAL_DISCOUNT;
+import static christmas.promotion.enums.collaborator.promotions.PromotionsAmount.AMOUNT_OF_WEEK_DISCOUNT;
+import static christmas.promotion.enums.collaborator.promotions.PromotionsAmount.CRITERIA_AMOUNT_FOR_EVENT;
+import static christmas.promotion.enums.collaborator.promotions.PromotionsAmount.CRITERIA_AMOUNT_FOR_GIVEAWAY;
+import static christmas.promotion.enums.collaborator.promotions.PromotionsAmount.DEFAULT_AMOUNT_OF_D_DAY_DISCOUNT;
+import static christmas.promotion.enums.collaborator.promotions.PromotionsAmount.INCREASE_AMOUNT_OF_D_DAY_DISCOUNT;
+import static christmas.promotion.enums.collaborator.promotions.PromotionsMessage.*;
 
 import christmas.promotion.collborator.calendar.Date;
 import christmas.promotion.collborator.calendar.Promotion;
