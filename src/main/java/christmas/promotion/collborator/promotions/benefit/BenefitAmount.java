@@ -1,6 +1,7 @@
 package christmas.promotion.collborator.promotions.benefit;
 
 import static christmas.promotion.enums.collaborator.promotions.benefit.BenefitAmountMessage.ITEM_OF_GIVEAWAY;
+import static christmas.promotion.enums.collaborator.promotions.benefit.BenefitAmountMessage.GIVEAWAY_BENEFIT_MESSAGE;
 import static christmas.promotion.enums.collaborator.promotions.benefit.BenefitAmountMessage.NO_BENEFITS;
 
 import christmas.promotion.collborator.generic.Won;
@@ -21,7 +22,7 @@ public record BenefitAmount(List<BenefitWrapper> amountOfBenefits) {
 
     private boolean isNotFoundOfGiveaway() {
         return amountOfBenefits.stream()
-                .noneMatch(benefit -> benefit.equalsBenefitName("증정 이벤트"));
+                .noneMatch(benefit -> benefit.equalsBenefitName(GIVEAWAY_BENEFIT_MESSAGE.get()));
     }
 
     public boolean isAllDiscountEmpty() {
