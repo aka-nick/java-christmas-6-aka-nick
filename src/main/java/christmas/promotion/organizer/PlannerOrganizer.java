@@ -20,7 +20,7 @@ public class PlannerOrganizer {
 
     public void run() {
         reservationManager.sayGreeting();
-        Date reservationDate = reservationManager.askReservationDate();
+        Date reservationDate = reservationManager.getReservation();
         Orders orders = orderManager.takeOrders();
         promotionManager.announceBenefitPreview(reservationDate, orders);
     }

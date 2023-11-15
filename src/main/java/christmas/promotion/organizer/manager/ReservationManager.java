@@ -23,7 +23,7 @@ public class ReservationManager implements InteractionRepeatable {
         output.println(SAY_GREETING);
     }
 
-    public Date askReservationDate() {
+    public Date getReservation() {
         return supplyInteractionWithCustomException(() -> {
             output.println(ASK_RESERVATION_DATE);
             return Date.of(input.number());
