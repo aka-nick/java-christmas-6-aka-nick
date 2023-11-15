@@ -41,8 +41,8 @@ class CalendarTest {
         Promotions expected = new Promotions(Calendar.findDate(NUMBER_OF_VALID_DATE).get(), orders);
         Promotions actual = Calendar.findPromotionsBy(Calendar.findDate(NUMBER_OF_VALID_DATE).get(), orders);
 
-        assertThat(actual.askBenefitAmount().amountOfTotalBenefits())
-                .isEqualTo(expected.askBenefitAmount().amountOfTotalBenefits());
+        assertThat(actual.askBenefitAmount())
+                .isEqualTo(expected.askBenefitAmount());
     }
 
 }
