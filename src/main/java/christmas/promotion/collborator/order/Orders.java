@@ -17,7 +17,7 @@ public record Orders(List<Order> orders) {
 
     private void validate(List<Order> orders) {
         if (isAllBeverage(orders)
-                || isDuplicate(orders)
+                || isDuplicated(orders)
                 || isUnacceptableNumberOfOrders(orders)) {
             throw new InvalidReservationOrderException();
         }
@@ -28,7 +28,7 @@ public record Orders(List<Order> orders) {
                 .allMatch(Order::isBeverage);
     }
 
-    public boolean isDuplicate(List<Order> orders) {
+    public boolean isDuplicated(List<Order> orders) {
         return orders.size() != orders.stream()
                 .map(Order::foodName)
                 .distinct()
