@@ -2,27 +2,27 @@ package christmas.promotion.organizer;
 
 import christmas.promotion.collborator.calendar.Date;
 import christmas.promotion.collborator.order.Orders;
-import christmas.promotion.organizer.viewer.OrderManager;
-import christmas.promotion.organizer.viewer.PromotionPlanner;
-import christmas.promotion.organizer.viewer.ReservationManager;
+import christmas.promotion.organizer.manager.OrderManager;
+import christmas.promotion.organizer.manager.PromotionManager;
+import christmas.promotion.organizer.manager.ReservationManager;
 
 public class PlannerOrganizer {
 
     private final ReservationManager reservationManager;
     private final OrderManager orderManager;
-    private final PromotionPlanner promotionPlanner;
+    private final PromotionManager promotionManager;
 
-    public PlannerOrganizer(ReservationManager reservationManager, OrderManager orderManager, PromotionPlanner promotionPlanner) {
+    public PlannerOrganizer(ReservationManager reservationManager, OrderManager orderManager, PromotionManager promotionManager) {
         this.reservationManager = reservationManager;
         this.orderManager = orderManager;
-        this.promotionPlanner = promotionPlanner;
+        this.promotionManager = promotionManager;
     }
 
     public void run() {
         reservationManager.sayGreeting();
         Date reservationDate = reservationManager.askReservationDate();
         Orders orders = orderManager.takeOrders();
-        promotionPlanner.announceBenefitPreview(reservationDate, orders);
+        promotionManager.announceBenefitPreview(reservationDate, orders);
     }
 
 }

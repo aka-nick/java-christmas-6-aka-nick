@@ -1,6 +1,6 @@
-package christmas.promotion.organizer.viewer;
+package christmas.promotion.organizer.manager;
 
-import static christmas.promotion.messages.organizer.viewer.ReservationManagerMessage.TAKE_ORDERS;
+import static christmas.promotion.messages.organizer.manager.ReservationManagerMessage.TAKE_ORDERS;
 
 import christmas.promotion.collborator.order.Order;
 import christmas.promotion.collborator.order.Orders;

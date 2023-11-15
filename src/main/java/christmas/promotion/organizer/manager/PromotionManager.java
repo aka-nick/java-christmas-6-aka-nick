@@ -1,13 +1,13 @@
-package christmas.promotion.organizer.viewer;
+package christmas.promotion.organizer.manager;
 
-import static christmas.promotion.messages.organizer.viewer.PromotionPlannerMessage.getBenefitsMessage;
-import static christmas.promotion.messages.organizer.viewer.PromotionPlannerMessage.getFinalAmountMessage;
-import static christmas.promotion.messages.organizer.viewer.PromotionPlannerMessage.getGiveawayHistoryMessage;
-import static christmas.promotion.messages.organizer.viewer.PromotionPlannerMessage.getOrderedMenuMessage;
-import static christmas.promotion.messages.organizer.viewer.PromotionPlannerMessage.getPreviewMessage;
-import static christmas.promotion.messages.organizer.viewer.PromotionPlannerMessage.getPromotionBadgeMessage;
-import static christmas.promotion.messages.organizer.viewer.PromotionPlannerMessage.getTotalAmountOfApplyPromotionMessage;
-import static christmas.promotion.messages.organizer.viewer.PromotionPlannerMessage.getTotalPriceMessage;
+import static christmas.promotion.messages.organizer.manager.PromotionManagerMessage.getBenefitsMessage;
+import static christmas.promotion.messages.organizer.manager.PromotionManagerMessage.getFinalAmountMessage;
+import static christmas.promotion.messages.organizer.manager.PromotionManagerMessage.getGiveawayHistoryMessage;
+import static christmas.promotion.messages.organizer.manager.PromotionManagerMessage.getOrderedMenuMessage;
+import static christmas.promotion.messages.organizer.manager.PromotionManagerMessage.getPreviewMessage;
+import static christmas.promotion.messages.organizer.manager.PromotionManagerMessage.getPromotionBadgeMessage;
+import static christmas.promotion.messages.organizer.manager.PromotionManagerMessage.getTotalAmountOfApplyPromotionMessage;
+import static christmas.promotion.messages.organizer.manager.PromotionManagerMessage.getTotalPriceMessage;
 
 import christmas.promotion.collborator.calendar.Calendar;
 import christmas.promotion.collborator.calendar.Date;
@@ -16,11 +16,11 @@ import christmas.promotion.collborator.calendar.benefit.BenefitAmount;
 import christmas.promotion.collborator.order.Orders;
 import christmas.promotion.organizer.io.Output;
 
-public class PromotionPlanner {
+public class PromotionManager {
 
     private final Output output;
 
-    public PromotionPlanner(Output output) {
+    public PromotionManager(Output output) {
         this.output = output;
     }
 

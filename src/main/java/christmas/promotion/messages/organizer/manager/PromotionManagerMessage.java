@@ -1,10 +1,10 @@
-package christmas.promotion.messages.organizer.viewer;
+package christmas.promotion.messages.organizer.manager;
 
 import christmas.promotion.collborator.calendar.PromotionBadge;
 import christmas.promotion.messages.GlobalMessage;
 import java.util.List;
 
-public enum PromotionPlannerMessage {
+public enum PromotionManagerMessage {
 
     ANNOUNCE_PREVIEW_BEFORE("12월 "),
     ANNOUNCE_PREVIEW_AFTER("일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!"),
@@ -21,7 +21,7 @@ public enum PromotionPlannerMessage {
 
     private final String message;
 
-    PromotionPlannerMessage(String message) {
+    PromotionManagerMessage(String message) {
         this.message = message;
     }
 

@@ -5,9 +5,9 @@ import christmas.promotion.io.ConsoleOutput;
 import christmas.promotion.organizer.PlannerOrganizer;
 import christmas.promotion.organizer.io.Input;
 import christmas.promotion.organizer.io.Output;
-import christmas.promotion.organizer.viewer.OrderManager;
-import christmas.promotion.organizer.viewer.PromotionPlanner;
-import christmas.promotion.organizer.viewer.ReservationManager;
+import christmas.promotion.organizer.manager.OrderManager;
+import christmas.promotion.organizer.manager.PromotionManager;
+import christmas.promotion.organizer.manager.ReservationManager;
 
 public class Dependency {
 
@@ -34,8 +34,8 @@ public class Dependency {
         return new OrderManager(input(), output());
     }
 
-    public static PromotionPlanner promotionPlanner() {
-        return new PromotionPlanner(output());
+    public static PromotionManager promotionPlanner() {
+        return new PromotionManager(output());
     }
 
 }
