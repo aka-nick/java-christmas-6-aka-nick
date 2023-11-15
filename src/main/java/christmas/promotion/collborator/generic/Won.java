@@ -1,12 +1,12 @@
 package christmas.promotion.collborator.generic;
 
+import static christmas.promotion.enums.collaborator.generic.WonMessage.UNIT_OF_WON;
+
 import java.math.BigInteger;
 import java.text.NumberFormat;
 import java.util.Locale;
 
 public record Won(BigInteger amount) {
-
-    public static final String UNIT_OF_WON = "원";
 
     public static Won of (BigInteger amount) {
         return new Won(amount);
@@ -27,7 +27,7 @@ public record Won(BigInteger amount) {
     }
 
     public String format() {
-        return NumberFormat.getNumberInstance(Locale.KOREAN).format(amount) + UNIT_OF_WON;
+        return NumberFormat.getNumberInstance(Locale.KOREAN).format(amount) + UNIT_OF_WON.get();
     }
 
     @Override
