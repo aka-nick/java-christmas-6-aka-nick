@@ -1,5 +1,6 @@
 package christmas.promotion.collborator.calendar.benefit;
 
+import christmas.promotion.collborator.generic.Won;
 import christmas.promotion.messages.GlobalMessage;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +29,10 @@ public record BenefitAmount(List<BenefitWrapper> amountOfBenefits) {
                 .allMatch(BenefitWrapper::isEmpty);
     }
 
-    public Integer amountOfTotalBenefits() {
-        return amountOfBenefits.stream()
-                .mapToInt(benefit -> benefit.orElse(0))
-                .sum();
+    public Won amountOfTotalBenefits() {
+        return Won.of(amountOfBenefits.stream()
+                .mapToInt(benefit -> benefit.orElse(Won.of(0)).intValue())
+                .sum());
     }
 
     public String findBenefitMessages() {

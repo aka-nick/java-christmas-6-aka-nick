@@ -1,5 +1,6 @@
 package christmas.promotion.collborator.calendar;
 
+import christmas.promotion.collborator.generic.Won;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -20,9 +21,9 @@ public enum PromotionBadge {
         this.criteriaAmountOfBadge = criteriaAmountOfBadge;
     }
 
-    public static String findPromotionBadgeBy(int amountOfTotalBenefits) {
+    public static String findPromotionBadgeBy(Won amountOfTotalBenefits) {
         return PromotionBadge.valuesInOrderAmount().stream()
-                .filter(badge -> badge.criteriaAmountOfBadge <= amountOfTotalBenefits)
+                .filter(badge -> badge.criteriaAmountOfBadge <= amountOfTotalBenefits.intValue())
                 .map(badge -> badge.badgeName)
                 .findFirst()
                 .orElse("없음");

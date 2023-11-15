@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.promotion.collborator.calendar.benefit.BenefitAmount;
 import christmas.promotion.collborator.calendar.benefit.BenefitWrapper;
+import christmas.promotion.collborator.generic.Won;
 import christmas.promotion.collborator.order.Order;
 import christmas.promotion.collborator.order.Orders;
 import java.util.List;
@@ -25,8 +26,8 @@ class PromotionsTest {
         Promotions promotions = new Promotions(fakeDate, 육천원짜리주문);
         BenefitAmount benefitAmount = promotions.askBenefitAmount();
 
-        int expected = 0;
-        Integer actual = benefitAmount.amountOfTotalBenefits();
+        Won expected = Won.of(0);
+        Won actual = benefitAmount.amountOfTotalBenefits();
 
         assertThat(actual).isEqualTo(expected);
     }
@@ -37,12 +38,12 @@ class PromotionsTest {
         Promotions promotions = new Promotions(fakeDate, 오만원짜리주문);
         BenefitAmount benefitAmount = promotions.askBenefitAmount();
 
-        Integer actual1 = benefitAmount.amountOfTotalBenefits();
+        Won actual1 = benefitAmount.amountOfTotalBenefits();
         Boolean actual2 = benefitAmount.amountOfBenefits().stream()
                 .filter(benefitWrapper -> benefitWrapper.equalsBenefitName("증정 이벤트"))
                 .map(BenefitWrapper::isEmpty)
                 .findFirst().get();
-        int unexpected1 = 0;
+        Won unexpected1 = Won.of(0);
 
         assertThat(actual1).isNotEqualTo(unexpected1);
         assertThat(actual2).isTrue();

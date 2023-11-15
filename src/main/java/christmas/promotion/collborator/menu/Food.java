@@ -1,5 +1,6 @@
 package christmas.promotion.collborator.menu;
 
+import christmas.promotion.collborator.generic.Won;
 import java.util.Objects;
 
 public class Food {
@@ -7,10 +8,10 @@ public class Food {
     enum Category { APPETIZER, MAIN, DESSERT, BEVERAGE;}
 
     private final Category category;
-
     private final String name;
-    private final int price; // TODO : 추후 Money 타입으로 교체
-    public Food(Category category, String name, int price) {
+    private final Won price;
+
+    public Food(Category category, String name, Won price) {
         this.category = category;
         this.name = name;
         this.price = price;
@@ -33,7 +34,7 @@ public class Food {
     }
 
     public int getPrice() {
-        return price;
+        return price.intValue();
     }
 
     @Override

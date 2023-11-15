@@ -1,5 +1,6 @@
 package christmas.promotion.collborator.calendar.benefit;
 
+import christmas.promotion.collborator.generic.Won;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,23 +16,23 @@ public sealed abstract class BenefitWrapper permits
     private static final String WON = "원";
     protected String benefitName = "";
 
-    protected Optional<Integer> amountOfBenefit;
+    protected Optional<Won> amountOfBenefit;
 
     void addMessageIfBenefitExists(List<String> willBeAdded) {
         amountOfBenefit
-                .filter(amount -> 0 < amount)
+                .filter(amount -> 0 < amount.intValue())
                 .ifPresent(amount -> willBeAdded.add(getBenefitStringOf(amount)));
     }
 
-    protected String getBenefitStringOf(Integer amount) {
-        return benefitName + SEPARATOR + MINUS + amount + WON;
+    protected String getBenefitStringOf(Won formattedAmount) {
+        return benefitName + SEPARATOR + MINUS + formattedAmount;
     }
 
     public boolean isEmpty() {
         return amountOfBenefit.isEmpty();
     }
 
-    public Integer orElse(Integer other) {
+    public Won orElse(Won other) {
         return amountOfBenefit.orElse(other);
     }
 

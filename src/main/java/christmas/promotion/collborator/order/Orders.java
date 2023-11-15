@@ -3,6 +3,7 @@ package christmas.promotion.collborator.order;
 import static christmas.promotion.messages.collaborator.order.OrdersMessage.SEPARATOR;
 import static christmas.promotion.messages.collaborator.order.OrdersMessage.UNIT_FOOD_NAME;
 
+import christmas.promotion.collborator.generic.Won;
 import christmas.promotion.exception.InvalidReservationOrderException;
 import java.util.List;
 
@@ -46,10 +47,10 @@ public record Orders(List<Order> orders) {
                 .toList();
     }
 
-    public int calculateTotalPrice() {
-        return orders().stream()
+    public Won calculateTotalPrice() {
+        return Won.of(orders().stream()
                 .mapToInt(Order::foodPrice)
-                .sum();
+                .sum());
     }
 
     public int countMainOrders() {

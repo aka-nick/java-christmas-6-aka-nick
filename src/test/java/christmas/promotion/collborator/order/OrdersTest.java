@@ -3,6 +3,7 @@ package christmas.promotion.collborator.order;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import christmas.promotion.collborator.generic.Won;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -45,8 +46,8 @@ class OrdersTest {
                 Order.place("제로콜라", 1)
         );
         Orders orderList = new Orders(orders);
-        int actual = orderList.calculateTotalPrice();
-        int expected = 6000 + 3000;
+        Won actual = orderList.calculateTotalPrice();
+        Won expected = Won.of(6000 + 3000);
 
         assertThat(actual).isEqualTo(expected);
     }
