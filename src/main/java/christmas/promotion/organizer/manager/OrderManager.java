@@ -1,5 +1,7 @@
 package christmas.promotion.organizer.manager;
 
+import static christmas.promotion.messages.organizer.manager.OrderManagerMessage.ORDER_DELIMITER;
+import static christmas.promotion.messages.organizer.manager.OrderManagerMessage.ORDER_FOODNAME_AND_QUANTITY_SEPARATOR;
 import static christmas.promotion.messages.organizer.manager.ReservationManagerMessage.TAKE_ORDERS;
 
 import christmas.promotion.collborator.order.Order;
@@ -22,8 +24,8 @@ public class OrderManager implements InteractionRepeatable {
     public Orders takeOrders() {
         return supplyInteractionWithCustomException(() -> {
             output.println(TAKE_ORDERS);
-            return new Orders(input.strings(",").stream()
-                    .map(reservation -> reservation.split("-"))
+            return new Orders(input.strings(ORDER_DELIMITER.get()).stream()
+                    .map(reservation -> reservation.split(ORDER_FOODNAME_AND_QUANTITY_SEPARATOR.get()))
                     .map(foodElements -> Order.place(foodElements[0], Integer.parseInt(foodElements[1])))
                     .toList());
         }, new InvalidReservationOrderException());
