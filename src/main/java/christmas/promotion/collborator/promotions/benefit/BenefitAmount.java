@@ -1,5 +1,8 @@
 package christmas.promotion.collborator.promotions.benefit;
 
+import static christmas.promotion.enums.collaborator.promotions.benefit.BenefitAmountMessage.ITEM_OF_GIVEAWAY;
+import static christmas.promotion.enums.collaborator.promotions.benefit.BenefitAmountMessage.NO_BENEFITS;
+
 import christmas.promotion.collborator.generic.Won;
 import christmas.promotion.enums.GlobalMessage;
 import java.util.ArrayList;
@@ -9,14 +12,11 @@ import java.util.stream.Collectors;
 
 public record BenefitAmount(List<BenefitWrapper> amountOfBenefits) {
 
-    public static final String NO_BENEFITS = "없음";
-    public static final String ITEM_OF_GIVEAWAY = "샴페인 1개";
-
     public String askResultOfGiveaway() {
         if (isNotFoundOfGiveaway()) {
-            return NO_BENEFITS;
+            return NO_BENEFITS.get();
         }
-        return ITEM_OF_GIVEAWAY;
+        return ITEM_OF_GIVEAWAY.get();
     }
 
     private boolean isNotFoundOfGiveaway() {
@@ -41,7 +41,7 @@ public record BenefitAmount(List<BenefitWrapper> amountOfBenefits) {
                 benefit.addMessageIfBenefitExists(benefitMessages));
 
         if (benefitMessages.isEmpty()) {
-            return NO_BENEFITS;
+            return NO_BENEFITS.get();
         }
         return benefitMessages.stream()
                 .collect(Collectors.joining(GlobalMessage.NEW_LINE.get()));
