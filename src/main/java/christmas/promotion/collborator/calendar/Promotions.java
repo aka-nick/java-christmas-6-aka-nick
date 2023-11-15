@@ -6,6 +6,7 @@ import static christmas.promotion.collborator.calendar.PromotionsAmount.CRITERIA
 import static christmas.promotion.collborator.calendar.PromotionsAmount.CRITERIA_AMOUNT_FOR_GIVEAWAY;
 import static christmas.promotion.collborator.calendar.PromotionsAmount.DEFAULT_AMOUNT_OF_D_DAY_DISCOUNT;
 import static christmas.promotion.collborator.calendar.PromotionsAmount.INCREASE_AMOUNT_OF_D_DAY_DISCOUNT;
+import static christmas.promotion.messages.collaborator.calendar.PromotionsMessage.*;
 
 import christmas.promotion.collborator.calendar.benefit.BenefitAmount;
 import christmas.promotion.collborator.calendar.benefit.DDayBenefitWrapper;
@@ -51,9 +52,14 @@ public class Promotions {
         if (totalPaymentAmount.intValue() < CRITERIA_AMOUNT_FOR_GIVEAWAY.get()) {
             return Optional.empty();
         }
-        return Optional.of(Won.of(Menu.findBy("샴페인")
+        return Optional.of(
+                Won.of(getPriceOfGiveawayMenu()));
+    }
+
+    private static int getPriceOfGiveawayMenu() {
+        return Menu.findBy(GIVEAWAY_MENU_NAME.get())
                 .orElseThrow(InvalidReservationOrderException::new)
-                .getPrice()));
+                .getPrice();
     }
 
     private Optional<Won> calculateDDayAmount() {
@@ -61,24 +67,36 @@ public class Promotions {
             return Optional.empty();
         }
         final int dayOfIncrease = today.date() - 1;
-        return Optional.of(Won.of(
-                DEFAULT_AMOUNT_OF_D_DAY_DISCOUNT.get() + (dayOfIncrease * INCREASE_AMOUNT_OF_D_DAY_DISCOUNT.get())));
+        return Optional.of(
+                Won.of(getAmountOfDDayDiscountAs(dayOfIncrease)));
+    }
+
+    private static int getAmountOfDDayDiscountAs(int dayOfIncrease) {
+        return DEFAULT_AMOUNT_OF_D_DAY_DISCOUNT.get() + (dayOfIncrease * INCREASE_AMOUNT_OF_D_DAY_DISCOUNT.get());
     }
 
     private Optional<Won> calculateWeekendAmount() {
         if (!today.contains(Promotion.WEEKEND)) {
             return Optional.empty();
         }
-        return Optional.of(Won.of(
-                orders.countMainOrders() * AMOUNT_OF_WEEK_DISCOUNT.get()));
+        return Optional.of(
+                Won.of(getAmountOfWeekendDiscount()));
+    }
+
+    private int getAmountOfWeekendDiscount() {
+        return orders.countMainOrders() * AMOUNT_OF_WEEK_DISCOUNT.get();
     }
 
     private Optional<Won> calculateWeekdayAmount() {
         if (!today.contains(Promotion.WEEKDAY)) {
             return Optional.empty();
         }
-        return Optional.of(Won.of(
-                orders.countDessertOrders() * AMOUNT_OF_WEEK_DISCOUNT.get()));
+        return Optional.of(
+                Won.of(getAmountOfWeekdayDiscount()));
+    }
+
+    private int getAmountOfWeekdayDiscount() {
+        return orders.countDessertOrders() * AMOUNT_OF_WEEK_DISCOUNT.get();
     }
 
     private Optional<Won> calculateSpecialAmount() {

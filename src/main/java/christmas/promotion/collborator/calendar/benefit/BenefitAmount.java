@@ -56,14 +56,10 @@ public record BenefitAmount(List<BenefitWrapper> amountOfBenefits) {
             return false;
         }
         BenefitAmount that = (BenefitAmount) o;
-
         List<String> thisBenefitNames = amountOfBenefits.stream()
-                .map(thisBenefitWrapper -> thisBenefitWrapper.benefitName)
-                .toList();
+                .map(thisBenefitWrapper -> thisBenefitWrapper.benefitName).toList();
         List<String> thatBenefitNames = that.amountOfBenefits.stream()
-                .map(thisBenefitWrapper -> thisBenefitWrapper.benefitName)
-                .toList();
-
+                .map(thisBenefitWrapper -> thisBenefitWrapper.benefitName).toList();
         return Objects.equals(thisBenefitNames, thatBenefitNames);
     }
 

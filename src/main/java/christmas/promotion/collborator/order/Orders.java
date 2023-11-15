@@ -28,12 +28,6 @@ public record Orders(List<Order> orders) {
                 .allMatch(Order::isBeverage);
     }
 
-    public boolean isUnacceptableNumberOfOrders(List<Order> orders) {
-        return QUANTITY_LIMIT_ORDERED_AT_ONCE < orders.stream()
-                .mapToInt(Order::foodQuantity)
-                .sum();
-    }
-
     public boolean isDuplicate(List<Order> orders) {
         return orders.size() != orders.stream()
                 .map(Order::foodName)
@@ -41,10 +35,20 @@ public record Orders(List<Order> orders) {
                 .count();
     }
 
+    public boolean isUnacceptableNumberOfOrders(List<Order> orders) {
+        return QUANTITY_LIMIT_ORDERED_AT_ONCE < orders.stream()
+                .mapToInt(Order::foodQuantity)
+                .sum();
+    }
+
     public List<String> findAllOrderedMenu() {
         return orders().stream()
-                .map(order -> order.foodName() + SEPARATOR + order.foodQuantity() + UNIT_FOOD_NAME)
+                .map(Orders::makeMessageOfOrderedMenu)
                 .toList();
+    }
+
+    private static String makeMessageOfOrderedMenu(Order order) {
+        return order.foodName() + SEPARATOR + order.foodQuantity() + UNIT_FOOD_NAME;
     }
 
     public Won calculateTotalPrice() {
