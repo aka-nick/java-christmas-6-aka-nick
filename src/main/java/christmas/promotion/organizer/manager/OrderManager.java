@@ -10,6 +10,8 @@ import christmas.promotion.exception.InvalidReservationOrderException;
 import christmas.promotion.organizer.io.Input;
 import christmas.promotion.organizer.io.InteractionRepeatable;
 import christmas.promotion.organizer.io.Output;
+import java.util.List;
+import java.util.function.Function;
 
 public class OrderManager implements InteractionRepeatable {
 
@@ -24,11 +26,23 @@ public class OrderManager implements InteractionRepeatable {
     public Orders takeOrders() {
         return supplyInteractionWithCustomException(() -> {
             output.println(TAKE_ORDERS);
-            return new Orders(input.strings(ORDER_DELIMITER.get()).stream()
-                    .map(reservation -> reservation.split(ORDER_FOODNAME_AND_QUANTITY_SEPARATOR.get()))
-                    .map(foodElements -> Order.place(foodElements[0], Integer.parseInt(foodElements[1])))
+            return new Orders(receivingCustomerOrderRequests().stream()
+                    .map(convertToFoodnameAndQuantity())
+                    .map(placeOrderByFoodnameAndQuantity())
                     .toList());
         }, new InvalidReservationOrderException());
+    }
+
+    private List<String> receivingCustomerOrderRequests() {
+        return input.strings(ORDER_DELIMITER.get());
+    }
+
+    private static Function<String, String[]> convertToFoodnameAndQuantity() {
+        return reservation -> reservation.split(ORDER_FOODNAME_AND_QUANTITY_SEPARATOR.get());
+    }
+
+    private static Function<String[], Order> placeOrderByFoodnameAndQuantity() {
+        return foodElements -> Order.place(foodElements[0], Integer.parseInt(foodElements[1]));
     }
 
 }
