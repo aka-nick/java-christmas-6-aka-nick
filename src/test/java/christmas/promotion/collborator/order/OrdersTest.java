@@ -33,11 +33,7 @@ class OrdersTest {
 
     @Test
     void 너무많이시키면_생성시예외가발생한다() {
-        List<Order> duplicateOrders = List.of(
-                Order.place("타파스", 500)
-        );
-
-        assertThatThrownBy(() -> new Orders(duplicateOrders))
+        assertThatThrownBy(() -> new Orders(List.of(Order.place("타파스", 500))))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
