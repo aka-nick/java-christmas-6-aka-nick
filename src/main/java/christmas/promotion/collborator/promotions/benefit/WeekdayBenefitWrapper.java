@@ -1,4 +1,4 @@
-package christmas.promotion.collborator.calendar.benefit;
+package christmas.promotion.collborator.promotions.benefit;
 
 import christmas.promotion.collborator.generic.Won;
 import java.util.Optional;

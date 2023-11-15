@@ -1,4 +1,4 @@
-package christmas.promotion.collborator.calendar;
+package christmas.promotion.collborator.promotions;
 
 import christmas.promotion.collborator.generic.Won;
 import java.util.Arrays;

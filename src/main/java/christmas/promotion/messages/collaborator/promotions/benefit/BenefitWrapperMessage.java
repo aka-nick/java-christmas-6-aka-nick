@@ -1,13 +1,14 @@
-package christmas.promotion.messages.collaborator.calendar;
+package christmas.promotion.messages.collaborator.promotions.benefit;
 
-public enum PromotionsMessage {
+public enum BenefitWrapperMessage {
 
-    GIVEAWAY_MENU_NAME("샴페인"),
+    SEPARATOR(": "),
+    MINUS("-"),
     ;
 
     private final String message;
 
-    PromotionsMessage(String message) {
+    BenefitWrapperMessage(String message) {
         this.message = message;
     }
 

@@ -3,6 +3,8 @@ package christmas.promotion.collborator.calendar.benefit;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.promotion.collborator.generic.Won;
+import christmas.promotion.collborator.promotions.benefit.BenefitAmount;
+import christmas.promotion.collborator.promotions.benefit.GiveawayBenefitWrapper;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;

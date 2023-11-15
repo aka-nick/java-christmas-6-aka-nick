@@ -11,8 +11,8 @@ import static christmas.promotion.messages.organizer.manager.PromotionManagerMes
 
 import christmas.promotion.collborator.calendar.Calendar;
 import christmas.promotion.collborator.calendar.Date;
-import christmas.promotion.collborator.calendar.Promotions;
-import christmas.promotion.collborator.calendar.benefit.BenefitAmount;
+import christmas.promotion.collborator.promotions.Promotions;
+import christmas.promotion.collborator.promotions.benefit.BenefitAmount;
 import christmas.promotion.collborator.order.Orders;
 import christmas.promotion.organizer.io.Output;
 

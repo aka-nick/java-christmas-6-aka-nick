@@ -1,5 +1,6 @@
 package christmas.promotion.collborator.calendar;
 
+import christmas.promotion.collborator.promotions.Promotions;
 import christmas.promotion.collborator.order.Orders;
 import java.util.HashMap;
 import java.util.List;

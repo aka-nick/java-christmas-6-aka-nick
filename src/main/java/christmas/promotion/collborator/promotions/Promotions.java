@@ -1,19 +1,21 @@
-package christmas.promotion.collborator.calendar;
+package christmas.promotion.collborator.promotions;
 
-import static christmas.promotion.collborator.calendar.PromotionsAmount.AMOUNT_OF_SPECIAL_DISCOUNT;
-import static christmas.promotion.collborator.calendar.PromotionsAmount.AMOUNT_OF_WEEK_DISCOUNT;
-import static christmas.promotion.collborator.calendar.PromotionsAmount.CRITERIA_AMOUNT_FOR_EVENT;
-import static christmas.promotion.collborator.calendar.PromotionsAmount.CRITERIA_AMOUNT_FOR_GIVEAWAY;
-import static christmas.promotion.collborator.calendar.PromotionsAmount.DEFAULT_AMOUNT_OF_D_DAY_DISCOUNT;
-import static christmas.promotion.collborator.calendar.PromotionsAmount.INCREASE_AMOUNT_OF_D_DAY_DISCOUNT;
-import static christmas.promotion.messages.collaborator.calendar.PromotionsMessage.*;
+import static christmas.promotion.collborator.promotions.PromotionsAmount.AMOUNT_OF_SPECIAL_DISCOUNT;
+import static christmas.promotion.collborator.promotions.PromotionsAmount.AMOUNT_OF_WEEK_DISCOUNT;
+import static christmas.promotion.collborator.promotions.PromotionsAmount.CRITERIA_AMOUNT_FOR_EVENT;
+import static christmas.promotion.collborator.promotions.PromotionsAmount.CRITERIA_AMOUNT_FOR_GIVEAWAY;
+import static christmas.promotion.collborator.promotions.PromotionsAmount.DEFAULT_AMOUNT_OF_D_DAY_DISCOUNT;
+import static christmas.promotion.collborator.promotions.PromotionsAmount.INCREASE_AMOUNT_OF_D_DAY_DISCOUNT;
+import static christmas.promotion.messages.collaborator.promotions.PromotionsMessage.*;
 
-import christmas.promotion.collborator.calendar.benefit.BenefitAmount;
-import christmas.promotion.collborator.calendar.benefit.DDayBenefitWrapper;
-import christmas.promotion.collborator.calendar.benefit.GiveawayBenefitWrapper;
-import christmas.promotion.collborator.calendar.benefit.SpecialBenefitWrapper;
-import christmas.promotion.collborator.calendar.benefit.WeekdayBenefitWrapper;
-import christmas.promotion.collborator.calendar.benefit.WeekendBenefitWrapper;
+import christmas.promotion.collborator.calendar.Date;
+import christmas.promotion.collborator.calendar.Promotion;
+import christmas.promotion.collborator.promotions.benefit.BenefitAmount;
+import christmas.promotion.collborator.promotions.benefit.DDayBenefitWrapper;
+import christmas.promotion.collborator.promotions.benefit.GiveawayBenefitWrapper;
+import christmas.promotion.collborator.promotions.benefit.SpecialBenefitWrapper;
+import christmas.promotion.collborator.promotions.benefit.WeekdayBenefitWrapper;
+import christmas.promotion.collborator.promotions.benefit.WeekendBenefitWrapper;
 import christmas.promotion.collborator.generic.Won;
 import christmas.promotion.collborator.menu.Menu;
 import christmas.promotion.collborator.order.Orders;
@@ -27,7 +29,7 @@ public class Promotions {
     private final Orders orders;
     private final Won totalPaymentAmount;
 
-    protected Promotions(Date todayDate, Orders orders) {
+    public Promotions(Date todayDate, Orders orders) {
         this.today = todayDate;
         this.orders = orders;
         this.totalPaymentAmount = orders.calculateTotalPrice();

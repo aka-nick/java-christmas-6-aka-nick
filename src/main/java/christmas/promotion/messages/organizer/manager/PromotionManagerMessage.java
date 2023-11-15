@@ -1,6 +1,6 @@
 package christmas.promotion.messages.organizer.manager;
 
-import christmas.promotion.collborator.calendar.PromotionBadge;
+import christmas.promotion.collborator.promotions.PromotionBadge;
 import christmas.promotion.collborator.generic.Won;
 import christmas.promotion.messages.GlobalMessage;
 import java.util.List;

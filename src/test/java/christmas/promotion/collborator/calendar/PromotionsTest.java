@@ -2,8 +2,9 @@ package christmas.promotion.collborator.calendar;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.promotion.collborator.calendar.benefit.BenefitAmount;
-import christmas.promotion.collborator.calendar.benefit.BenefitWrapper;
+import christmas.promotion.collborator.promotions.Promotions;
+import christmas.promotion.collborator.promotions.benefit.BenefitAmount;
+import christmas.promotion.collborator.promotions.benefit.BenefitWrapper;
 import christmas.promotion.collborator.generic.Won;
 import christmas.promotion.collborator.order.Order;
 import christmas.promotion.collborator.order.Orders;
