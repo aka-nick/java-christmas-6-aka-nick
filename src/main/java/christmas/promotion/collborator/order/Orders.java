@@ -2,14 +2,13 @@ package christmas.promotion.collborator.order;
 
 import static christmas.promotion.enums.collaborator.order.OrdersMessage.SEPARATOR;
 import static christmas.promotion.enums.collaborator.order.OrdersMessage.UNIT_FOOD_NAME;
+import static christmas.promotion.enums.collaborator.order.OrdersQuantity.QUANTITY_LIMIT_ORDERED_AT_ONCE;
 
 import christmas.promotion.collborator.generic.Won;
 import christmas.promotion.exception.InvalidReservationOrderException;
 import java.util.List;
 
 public record Orders(List<Order> orders) {
-
-    public static final int QUANTITY_LIMIT_ORDERED_AT_ONCE = 20;
 
     public Orders {
         validate(orders);
@@ -36,7 +35,7 @@ public record Orders(List<Order> orders) {
     }
 
     public boolean isUnacceptableNumberOfOrders(List<Order> orders) {
-        return QUANTITY_LIMIT_ORDERED_AT_ONCE < orders.stream()
+        return QUANTITY_LIMIT_ORDERED_AT_ONCE.get() < orders.stream()
                 .mapToInt(Order::foodQuantity)
                 .sum();
     }
