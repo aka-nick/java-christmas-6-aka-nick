@@ -24,7 +24,7 @@ public class OrderManager implements InteractionRepeatable {
     }
 
     public Orders takeOrders() {
-        return supplyInteractionWithCustomException(() -> {
+        return supplyInteractionWithException(() -> {
             output.println(TAKE_ORDERS);
             return new Orders(receivingCustomerOrderRequests().stream()
                     .map(convertToFoodnameAndQuantity())

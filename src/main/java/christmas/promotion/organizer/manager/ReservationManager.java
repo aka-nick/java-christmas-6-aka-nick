@@ -24,7 +24,7 @@ public class ReservationManager implements InteractionRepeatable {
     }
 
     public Date getReservation() {
-        return supplyInteractionWithCustomException(() -> {
+        return supplyInteractionWithException(() -> {
             output.println(ASK_RESERVATION_DATE);
             return Date.of(input.number());
         }, new InvalidReservationDateException());

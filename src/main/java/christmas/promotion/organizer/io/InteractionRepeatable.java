@@ -35,10 +35,10 @@ public interface InteractionRepeatable {
      * 즉, 이 메서드를 사용할 때는 발생 위치가 아주 특정되고, 중복 재사용되지 않으며,
      * 좁은 의미를 가진 CustomException을 일으키는 경우에만 한하여 사용하여야 한다.
      */
-    default void runInteractionWithCustomException(final Runnable runnable, RuntimeException exception) {
+    default void runInteractionWithException(final Runnable runnable, RuntimeException exception) {
         while (true) {
             try {
-                runInteractionWithCustomExceptionInner(runnable, exception);
+                runInteractionWithExceptionInner(runnable, exception);
                 break;
             } catch (RuntimeException e) {
                 output.println(GlobalMessage.EXCEPTION_HEADER.get() + e.getMessage());
@@ -46,7 +46,7 @@ public interface InteractionRepeatable {
         }
     }
 
-    private void runInteractionWithCustomExceptionInner(final Runnable runnable, final RuntimeException exception) {
+    private void runInteractionWithExceptionInner(final Runnable runnable, final RuntimeException exception) {
         try {
             runnable.run();
         } catch (RuntimeException e) {
@@ -60,17 +60,17 @@ public interface InteractionRepeatable {
      * 즉, 이 메서드를 사용할 때는 발생 위치가 아주 특정되고, 중복 재사용되지 않으며,
      * 좁은 의미를 가진 CustomException을 일으키는 경우에만 한하여 사용하여야 한다.
      */
-    default <T> T supplyInteractionWithCustomException(final Supplier<T> supplier, IllegalArgumentException exception) {
+    default <T> T supplyInteractionWithException(final Supplier<T> supplier, IllegalArgumentException exception) {
         while (true) {
             try {
-                return supplyInteractionWithCustomExceptionInner(supplier, exception);
+                return supplyInteractionWithExceptionInner(supplier, exception);
             } catch (IllegalArgumentException e) {
                 output.println(GlobalMessage.EXCEPTION_HEADER.get() + e.getMessage());
             }
         }
     }
 
-    private <T> T supplyInteractionWithCustomExceptionInner(final Supplier<T> supplier, IllegalArgumentException exception) {
+    private <T> T supplyInteractionWithExceptionInner(final Supplier<T> supplier, IllegalArgumentException exception) {
         try {
             return supplier.get();
         } catch (IllegalArgumentException e) {
